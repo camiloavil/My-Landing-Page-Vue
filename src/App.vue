@@ -1,6 +1,6 @@
 <script setup>
 import MyBrand from './components/MyBrand.vue'
-import Content from './components/Content.vue'
+import MyContent from './components/MyContent.vue'
 import linksjson from './assets/json/links.json';
 import contentjson from './assets/json/content.json';
 import { ref } from 'vue'
@@ -32,7 +32,7 @@ const links_content = ref(linksjson)
   </header>
   
   <main v-show="data_content.projects.length > 0">
-    <Content :content="data_content.projects"/>
+    <MyContent :content="data_content.projects"/>
     <!-- <component :is="TheWelcome" /> -->
     <div>
       <!-- <component :is="containerName" msg="Hello Kmi"></component> -->

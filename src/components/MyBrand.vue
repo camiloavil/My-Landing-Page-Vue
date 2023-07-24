@@ -21,7 +21,7 @@ defineProps({
         <a v-bind:href="data_content.url_site" target="_blank" rel="noopener">{{ data_content.nickname }}</a> 
       </h4>
       <div v-show="data_content.links.length > 0" class="icon_container">
-        <a v-for="logo in data_content.links" v-bind:href="logo.url" target="_blank">
+        <a v-for="logo in data_content.links" :key="logo.id" :href="logo.url" target="_blank">
           <svg class="icon_link" xmlns="http://www.w3.org/2000/svg" v-bind:viewBox="logo.viewBox">
             <title v-text="logo.name"/>
             <path v-bind:d="logo.path_d"/>
@@ -29,7 +29,7 @@ defineProps({
         </a>
       </div>
       <div v-show="data_content.contacts.length > 0" class="icon_container">
-        <a v-for="logo in data_content.contacts" v-bind:href="logo.url" target="_blank">
+        <a v-for="logo in data_content.contacts" :key="logo.id" :href="logo.url" target="_blank">
           <svg class="icon_link" xmlns="http://www.w3.org/2000/svg" v-bind:viewBox="logo.viewBox">
             <title v-text="logo.name"/>
             <path v-bind:d="logo.path_d"/>

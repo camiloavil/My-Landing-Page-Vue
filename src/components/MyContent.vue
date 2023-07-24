@@ -1,6 +1,6 @@
 <script setup>
 import ProjectItem from './ProjectItem.vue'
-import Icon from './icons/Icon.vue'
+import IconCustom from './icons/IconCustom.vue'
 // import EcosystemIcon from './icons/IconEcosystem.vue'
 
 defineProps({
@@ -12,14 +12,14 @@ defineProps({
 </script>
 
 <template>
-  <ProjectItem v-for="project in content">
+  <ProjectItem v-for="project in content" :key="project.id">
     <template #icon>
-      <Icon class="icons" :myicon="project.icon"/>
+      <IconCustom class="icons" :myicon="project.icon"/>
     </template>
     <template #heading>{{project.name}}{{ project.open_source ? ' [OPEN SOURCE]' : '' }}</template>
     {{ project.description }}
     <div v-show="project.links.length > 0">
-      <a v-for="p_link in project.links" :href="p_link.url" target="_blank" rel="noopener">{{p_link.name}} </a>
+      <a v-for="p_link in project.links" :key="p_link.id" :href="p_link.url" target="_blank" rel="noopener">{{p_link.name}} </a>
     </div>
   </ProjectItem>
 
