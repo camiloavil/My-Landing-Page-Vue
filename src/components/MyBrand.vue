@@ -2,9 +2,9 @@
 
 defineProps({
   data_content: {
-        type: Object,
-        required: true
-       }
+    type: Object,
+    required: true
+  }
 });
 
 </script>
@@ -20,8 +20,16 @@ defineProps({
         {{ data_content.description }}
         <a v-bind:href="data_content.url_site" target="_blank" rel="noopener">{{ data_content.nickname }}</a> 
       </h4>
-      <div class="icon_container">
+      <div v-show="data_content.links.length > 0" class="icon_container">
         <a v-for="logo in data_content.links" v-bind:href="logo.url" target="_blank">
+          <svg class="icon_link" xmlns="http://www.w3.org/2000/svg" v-bind:viewBox="logo.viewBox">
+            <title v-text="logo.name"/>
+            <path v-bind:d="logo.path_d"/>
+          </svg>
+        </a>
+      </div>
+      <div v-show="data_content.contacts.length > 0" class="icon_container">
+        <a v-for="logo in data_content.contacts" v-bind:href="logo.url" target="_blank">
           <svg class="icon_link" xmlns="http://www.w3.org/2000/svg" v-bind:viewBox="logo.viewBox">
             <title v-text="logo.name"/>
             <path v-bind:d="logo.path_d"/>
@@ -59,7 +67,7 @@ h4 {
 }
 .icon_container {
   align-items: right;
-  border-right: 1px solid var(--color-border);
+  /* border-right: 1px solid var(--color-border); */
 }
 .logo:hover{
   fill: var(--color-links);
