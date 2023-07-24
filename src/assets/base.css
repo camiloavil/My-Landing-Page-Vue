@@ -9,6 +9,8 @@
   --vt-c-black-mute: #282828;
 
   --vt-c-indigo: #2c3e50;
+  --vt-c-blue: rgb(20, 137, 233);
+  --vt-c-orange: rgb(233, 161, 67);
 
   --vt-c-divider-light-1: rgba(60, 60, 60, 0.29);
   --vt-c-divider-light-2: rgba(60, 60, 60, 0.12);
@@ -33,6 +35,8 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
+  --color-links: var(--vt-c-blue);
+
   --section-gap: 160px;
 }
 
@@ -47,7 +51,10 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
+
+    --color-links: var(--vt-c-orange);
   }
+
 }
 
 *,
