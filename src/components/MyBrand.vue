@@ -12,7 +12,7 @@ defineProps({
 
 <template>
   <footer class="footer-container">
-    <div>
+    <div class="top-container">
       <h1 class="mycolor">{{ data_content.name }}</h1>
       <h4>
         {{ data_content.description }}
@@ -38,6 +38,13 @@ defineProps({
 </template>
 
 <style scoped>
+.footer-container{
+  display: block; 
+  margin: 0;
+}
+.top-container{
+  display: block;
+}
 a:hover{
   text-decoration: underline;
 }
@@ -49,29 +56,25 @@ h1 {
 h4 {
   font-size: 0.9rem;
 }
-.footer-container{
-  display: block; 
-}
 
 .logo {
   fill: var(--color-text);
-  /* display: block; */
-  margin: auto 24px;
-  min-width: 50px;
-}
-.icon_container {
-  /* display: flex; */
-  align-items: right;
-  /* border-right: 1px solid var(--color-border); */
+  margin: auto 1rem;
+  min-width: 1rem;
+  max-width: 1.8rem;
 }
 .logo:hover{
   fill: var(--color-links);
 }
-.bottom-container{
-  margin-top: 1rem;
-  display: flex;
+.icon_container {
+  align-items: right;
+  margin-bottom: 0.3rem;
 }
-
+.bottom-container{
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
 @media (min-width: 1024px) {
   h1 {
     font-weight: 500;
@@ -86,13 +89,21 @@ h4 {
   .footer-container h3 {
     text-align: left;
   }
+  .bottom-container{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: flex-start;
+  }
+
   .icon_container {
     display: flex;
     /* align-items: right; */
     /* border-right: 1px solid var(--color-border); */
   }
   .logo {
+    margin-left: 2rem;
     min-width: 1rem;
+    max-width: 3rem;
   }
 }
 </style>

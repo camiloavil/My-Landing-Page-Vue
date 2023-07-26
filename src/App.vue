@@ -51,21 +51,26 @@ header {
   line-height: 1.2;
 }
 .profilepicture{
+  margin: auto 0.5rem;
   border-radius: 48%;
-  height: 6rem;
-}
-
-.brand{
-  margin-top: 32px;
+  min-height: 2rem;
+  max-height: 6rem;
+  /*width: 100%; */
 }
 .wrapper{
+  width: 100%;
   display: flex;
   margin-bottom: 1.5rem;
+  justify-content: center;
 }
 
 @media (min-width: 1024px) {
+  .brand{
+    margin-top: 32px;
+  }
   .profilepicture{
-    height: 15rem;
+    margin: 0 0 0 0;
+    max-height: 15rem;
   }
   header {
     display: flex;

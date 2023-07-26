@@ -18,17 +18,12 @@ defineProps({
 
 <style scoped>
 a{
-  /* display: inline-block; */
   text-align: center;
-  border: 1px solid var(--color-border);
 }
-/* svg{
-} */
 .icon_link{
   fill: var(--color-text);
-  height: 1.4rem;
-  /* width: 1.4rem; */
-  padding: 3px 1rem;
+  height: 1.6rem;
+  padding: 3px 0.6rem;
 }
 .icon_link:hover{
   fill: var(--color-links);
@@ -36,7 +31,7 @@ a{
 @media (min-width: 1024px) {
   .icon_link{
     height: 2rem;
-    padding: 6px 0.5rem 0 0.5rem;
+    padding: 6px 1.5rem 0 0;
   }
 }
 </style>
