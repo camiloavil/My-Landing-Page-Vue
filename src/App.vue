@@ -3,17 +3,21 @@ import MyBrand from './components/MyBrand.vue'
 import MyContent from './components/MyContent.vue'
 import linksjson from './assets/json/links.json';
 import contentjson from './assets/json/content.json';
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const data_content = ref(contentjson)
 const links_content = ref(linksjson)
 
-  // functions
-  function log() {
-    let temp = data_content.value.contacts.length
-    console.log(`len of ${(temp>0 ? true : false)} links`)
-    // console.log(post.value)
+// functions
+function log() {
+  // let temp = data_content.value.contacts.length
+  // console.log(`len of ${(temp>0 ? true : false)} links`)
+  // console.log(post.value)
 }
+
+onMounted(() => {
+  console.log(`Mounted`)
+});
 // const post = await fetch(`./assets/links.json`).then((r) => r.json())
 </script>
 
@@ -43,30 +47,34 @@ const links_content = ref(linksjson)
 </template>
 
 <style scoped>
-
 header {
-  line-height: 1.5;
+  line-height: 1.2;
 }
 .profilepicture{
   border-radius: 48%;
-  height: 15rem;
+  height: 6rem;
 }
 
 .brand{
-  margin-top: 25px;
+  margin-top: 32px;
+}
+.wrapper{
+  display: flex;
+  margin-bottom: 1.5rem;
 }
 
 @media (min-width: 1024px) {
+  .profilepicture{
+    height: 15rem;
+  }
   header {
     display: flex;
+    line-height: 1.5;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
   }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
+  .wrapper{
+    display: block;
   }
 }
 </style>
