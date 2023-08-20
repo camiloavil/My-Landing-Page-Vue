@@ -1,63 +1,88 @@
 <script setup>
+import NavBar from './components/NavBar.vue';
 import MyBrand from './components/MyBrand.vue'
 import MyContent from './components/MyContent.vue'
 import linksjson from './assets/json/links.json';
 import contentjson from './assets/json/content.json';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted , watch } from 'vue'
 
+const useDark = window.matchMedia("(prefers-color-scheme: dark)");
 const data_content = ref(contentjson)
 const links_content = ref(linksjson)
+const lang = ref('en')
+const dark_theme = ref(true)
 
-// functions
-function log() {
-  // let temp = data_content.value.contacts.length
-  // console.log(`len of ${(temp>0 ? true : false)} links`)
-  // console.log(post.value)
+function changeLanguage() {
+  if (lang.value === 'en') {
+    lang.value = 'es'
+  } else {
+    lang.value = 'en'
+  }
+  console.log(`Route lang changed to ${lang.value}`)
 }
 
+watch(dark_theme, async (newTheme) => {
+  console.log(`Mounted dark_theme is ${useDark.value}`)
+  console.log(`dark_theme changed to ${newTheme}`)
+})
+
 onMounted(() => {
-  console.log(`Mounted`)
+  console.log(`Mounted dark_theme is ${useDark.value}`)
 });
 // const post = await fetch(`./assets/links.json`).then((r) => r.json())
 </script>
 
 <template>
-  <!-- <nav>
-    <ul>
-      <li>es</li>
-      <li>en</li>
-    </ul>
-  </nav> -->
   <header>
-    <section class="wrapper">
-      <img @click="log" class="profilepicture" src="./assets/pics/profile_orange.png" alt="Profile Pic">
-      <MyBrand class="brand" v-bind:data_content="links_content" />
-    </section>
+    <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
   </header>
-  
-  <main v-show="data_content.projects.length > 0">
-    <MyContent :content="data_content.projects"/>
-    <!-- <component :is="TheWelcome" /> -->
-    <div>
-      <!-- <component :is="containerName" msg="Hello Kmi"></component> -->
-      <!-- <p>Esto es una chimba Cami. ahora si a hacer aplicaciones geniales</p> -->
-      <!-- <button @click="countII++">Count is: {{ countII }}</button> -->
-    </div>
-  </main>
+  <section class="big-wrapper">
+    <section class="wrapper">
+      <MyBrand class="brand" :data_content="links_content" :dark_theme="dark_theme" />
+      <!-- <img @click="dark_theme=!dark_theme" class="profilepicture" src="./assets/pics/profile_orange.png" alt="Profile Pic"> -->
+    </section>
+    <main v-show="data_content.projects.length > 0">
+      <MyContent :content="data_content.projects" />
+      <!-- <component :is="TheWelcome" /> -->
+      <div>
+        <!-- <component :is="containerName" msg="Hello Kmi"></component> -->
+        <!-- <p>Esto es una chimba Cami. ahora si a hacer aplicaciones geniales</p> -->
+        <!-- <button @click="countII++">Count is: {{ countII }}</button> -->
+      </div>
+    </main>
+  </section>
 </template>
 
 <style scoped>
 header {
-  line-height: 1.2;
+  width: 100%;
+  height: 30px;
+  border: 1px solid var(--color-border);
+  /* padding: 2px; */
+  /* line-height: 1.2; */
 }
-.profilepicture{
-  margin: auto 0.5rem;
-  border-radius: 48%;
-  min-height: 2rem;
-  max-height: 6rem;
-  /*width: 100%; */
+
+.navbar {
+  /* background-color: azure; */
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem auto;
+  width: 70%;
+  text-align: center;
+  list-style: none;
+  /* border-bottom: 1px solid currentColor; */
 }
-.wrapper{
+
+
+.big-wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1rem 0.4rem;
+}
+
+
+.wrapper {
   width: 100%;
   display: flex;
   margin-bottom: 1.5rem;
@@ -65,21 +90,28 @@ header {
 }
 
 @media (min-width: 1024px) {
-  .brand{
+  .big-wrapper {
+    display: grid;
+    grid-template-columns: 0.7fr 1.3fr;
+  }
+
+  .brand {
     margin-top: 32px;
   }
-  .profilepicture{
+
+  .profilepicture {
     margin: 0 0 0 0;
     max-height: 15rem;
   }
-  header {
+
+  /* header {
     display: flex;
     line-height: 1.5;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
-  }
-  .wrapper{
+  } */
+
+  .wrapper {
     display: block;
   }
-}
-</style>
+}</style>

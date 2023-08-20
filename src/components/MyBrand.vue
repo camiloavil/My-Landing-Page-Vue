@@ -1,16 +1,34 @@
 <script setup>
 import LogoLink from './icons/LogoLink.vue';
+import { ref, watch, onMounted } from 'vue';
 
-defineProps({
+const pic_src = ref('../assets/pics/profileBlue.png')
+
+const props = defineProps({
   data_content: {
     type: Object,
+    required: true
+  },
+  dark_theme: {
+    type: Boolean,
     required: true
   }
 });
 
+// watch(props.dark_theme, async (newTheme) => {
+//   console.log(`Mounted dark_theme is ${props.dark_theme}`)
+// })
+
+onMounted(() => {
+  console.log(`MyBrand dark_theme is ${props.dark_theme}`)
+  props.dark_theme ? pic_src.value = '../assets/pics/profile_orange.png' : pic_src.value = '../assets/pics/profileBlue.png'
+  console.log(`Pic_src ${pic_src.value}`)
+});
 </script>
 
 <template>
+  <!-- <img @click="dark_theme=!dark_theme" class="profilepicture" src="../assets/pics/profileBlue.png" alt="Profile Pic"> -->
+  <img @click="dark_theme=!dark_theme" class="profilepicture" src="../assets/pics/profileBlue.png" alt="Profile Pic">
   <footer class="footer-container">
     <div class="top-container">
       <h1 class="mycolor">{{ data_content.name }}</h1>
@@ -38,6 +56,14 @@ defineProps({
 </template>
 
 <style scoped>
+
+.profilepicture {
+  margin: auto 0.5rem;
+  border-radius: 48%;
+  min-height: 2rem;
+  max-height: 6rem;
+  /*width: 100%; */
+}
 .footer-container{
   display: block; 
   margin: 0;
