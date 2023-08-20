@@ -30,34 +30,44 @@ onMounted(() => {
   console.log(`Mounted dark_theme is ${useDark.value}`)
 });
 // const post = await fetch(`./assets/links.json`).then((r) => r.json())
+function setLightTheme() {
+    currentTheme.value = 'light';
+
+    document.documentElement.style.setProperty('--primary', 'var(--purple)');
+    document.documentElement.style.setProperty('--background', 'var(--bg--light)');
+    document.documentElement.style.setProperty('--text', 'var(--text--light');
+    document.documentElement.style.setProperty('--link-text', 'var(--link-text--light');
+    document.documentElement.style.setProperty(
+        '--active-link-text',
+        'var(--active-link-text--light'
+    );
+    document.documentElement.style.setProperty('--shadow', 'var(--shadow--light');
+    document.documentElement.style.setProperty('--quote-bg', 'var(--quote-bg--light');
+
+    process.isClient && localStorage.setItem('theme', 'light');
+}
+
 </script>
 
 <template>
   <header>
     <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
   </header>
-  <section class="big-wrapper">
+  <main class="big-wrapper">
     <section class="wrapper">
-      <MyBrand class="brand" :data_content="links_content" :dark_theme="dark_theme" />
-      <!-- <img @click="dark_theme=!dark_theme" class="profilepicture" src="./assets/pics/profile_orange.png" alt="Profile Pic"> -->
+      <MyBrand :data_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
     </section>
-    <main v-show="data_content.projects.length > 0">
+    <section v-show="data_content.projects.length > 0">
       <MyContent :content="data_content.projects" />
-      <!-- <component :is="TheWelcome" /> -->
-      <div>
-        <!-- <component :is="containerName" msg="Hello Kmi"></component> -->
-        <!-- <p>Esto es una chimba Cami. ahora si a hacer aplicaciones geniales</p> -->
-        <!-- <button @click="countII++">Count is: {{ countII }}</button> -->
-      </div>
-    </main>
-  </section>
+    </section>
+  </main>
 </template>
 
 <style scoped>
 header {
   width: 100%;
   height: 30px;
-  border: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
   /* padding: 2px; */
   /* line-height: 1.2; */
 }

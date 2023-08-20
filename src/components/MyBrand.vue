@@ -1,34 +1,22 @@
 <script setup>
 import LogoLink from './icons/LogoLink.vue';
-import { ref, watch, onMounted } from 'vue';
 
-const pic_src = ref('../assets/pics/profileBlue.png')
+defineEmits(['changeTheme'])
 
-const props = defineProps({
+const {data_content = null, themeDark = false} = defineProps({
   data_content: {
     type: Object,
     required: true
   },
-  dark_theme: {
+  themeDark: {
     type: Boolean,
     required: true
   }
 });
-
-// watch(props.dark_theme, async (newTheme) => {
-//   console.log(`Mounted dark_theme is ${props.dark_theme}`)
-// })
-
-onMounted(() => {
-  console.log(`MyBrand dark_theme is ${props.dark_theme}`)
-  props.dark_theme ? pic_src.value = '../assets/pics/profile_orange.png' : pic_src.value = '../assets/pics/profileBlue.png'
-  console.log(`Pic_src ${pic_src.value}`)
-});
 </script>
 
 <template>
-  <!-- <img @click="dark_theme=!dark_theme" class="profilepicture" src="../assets/pics/profileBlue.png" alt="Profile Pic"> -->
-  <img @click="dark_theme=!dark_theme" class="profilepicture" src="../assets/pics/profileBlue.png" alt="Profile Pic">
+  <img class="profilepicture" @click="$emit('changeTheme')" :src="`src/assets/pics/profile${(themeDark)?'Orange':'Blue'}.png`" alt="Profile Pic">
   <footer class="footer-container">
     <div class="top-container">
       <h1 class="mycolor">{{ data_content.name }}</h1>
