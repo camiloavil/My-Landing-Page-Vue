@@ -40,7 +40,21 @@ nav div{
   display: flex;
   align-items: center;
   padding: 0 45px;
+}
+nav span{
+  border-radius: 20px;
   cursor: pointer;
 }
+nav svg{
+  cursor: pointer;
+  border-radius: 20px;
+}
+/* nav span:hover{
+  box-shadow: 0 1px 16px 0 var(--color-links);
+}
+nav svg:hover{
+  box-shadow: 0 1px 16px 0 var(--color-links);
+} */
+
 </style>
 

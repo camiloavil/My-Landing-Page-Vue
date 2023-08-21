@@ -3,14 +3,14 @@ import NavBar from './components/NavBar.vue';
 import MyBrand from './components/MyBrand.vue'
 import MyContent from './components/MyContent.vue'
 import linksjson from './assets/json/links.json';
-import contentjson from './assets/json/content.json';
+import content_en_json from './assets/json/content_en.json';
+import content_es_json from './assets/json/content_es.json';
 import theme from './assets/scripts/theme.js'
-import { ref, onMounted , watch } from 'vue'
+import { ref, onMounted , watch, computed } from 'vue'
 
-const data_content = ref(contentjson)
-const links_content = ref(linksjson)
-const lang = ref('en')
 const dark_theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches)
+const lang = ref('en')
+const links_content = ref(linksjson)
 
 function changeLanguage() {
   if (lang.value === 'en') {
@@ -20,26 +20,28 @@ function changeLanguage() {
     lang.value = 'en'
     document.documentElement.lang ='en'
   }
-  // console.log(`Route lang changed to ${lang.value}`)
 }
 
+const data_content = computed(() => {
+  if (lang.value === 'en') {
+    return content_en_json;
+  }else{
+    return content_es_json;
+  }
+})
+
 watch(dark_theme, async (newTheme) => {
-  console.log(`Change dark_theme ${dark_theme.value} newTheme ${newTheme}`)
   if (!newTheme) {
     theme.setLightTheme()
-    console.log(`Set light Theme`)
   }else{
     theme.setDarkTheme()
-    console.log(`Set dark Theme`)
   }
 })
 onMounted(() => {
   if (dark_theme.value) {
     theme.setDarkTheme();
-    console.log('Dark mode is preferred');
   } else {
     theme.setLightTheme();
-    console.log('Light mode is preferred');
   }
 });
 
@@ -51,7 +53,7 @@ onMounted(() => {
   </header>
   <main class="big-wrapper">
     <section class="wrapper">
-      <MyBrand :data_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
+      <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
     </section>
     <section v-show="data_content.projects.length > 0">
       <MyContent :content="data_content.projects" />
@@ -80,13 +82,11 @@ header {
   /* border-bottom: 1px solid currentColor; */
 }
 
-
 .big-wrapper {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 1rem 0.4rem;
+  padding: 1rem 0.2rem;
 }
-
 
 .wrapper {
   width: 100%;

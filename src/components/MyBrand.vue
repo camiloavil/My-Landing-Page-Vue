@@ -3,8 +3,12 @@ import LogoLink from './icons/LogoLink.vue';
 
 defineEmits(['changeTheme'])
 
-const {data_content = null, themeDark = false} = defineProps({
+const {data_content = null, links_content = null, themeDark = false} = defineProps({
   data_content: {
+    type: Object,
+    required: true
+  },
+  links_content: {
     type: Object,
     required: true
   },
@@ -29,11 +33,11 @@ const {data_content = null, themeDark = false} = defineProps({
     </div>
     <div class="bottom-container">
       <div class="logos-container">
-        <div v-if="data_content.links.length > 0" class="icon_container">
-          <LogoLink v-for="logo in data_content.links" :key="logo.id" :icon_data="logo"/>
+        <div v-if="links_content.links.length > 0" class="icon_container">
+          <LogoLink v-for="logo in links_content.links" :key="logo.id" :icon_data="logo"/>
         </div>
-        <div v-if="data_content.contacts.length > 0" class="icon_container">
-          <LogoLink v-for="logo in data_content.contacts" :key="logo.id" :icon_data="logo"/>
+        <div v-if="links_content.contacts.length > 0" class="icon_container">
+          <LogoLink v-for="logo in links_content.contacts" :key="logo.id" :icon_data="logo"/>
         </div>
       </div>
       <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392 469">
@@ -54,7 +58,7 @@ const {data_content = null, themeDark = false} = defineProps({
 }
 .footer-container{
   display: block; 
-  margin: 0;
+  margin: 0 0px;
 }
 .top-container{
   display: block;
@@ -89,6 +93,11 @@ h4 {
   display: flex;
   justify-content: space-between;
 }
+
+.profilepicture:hover{
+  box-shadow: 0 1px 16px 0 var(--color-links);
+}
+
 @media (min-width: 1024px) {
   h1 {
     font-weight: 500;
