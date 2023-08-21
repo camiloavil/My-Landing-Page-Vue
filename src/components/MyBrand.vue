@@ -17,10 +17,16 @@ const {data_content = null, links_content = null, themeDark = false} = definePro
     required: true
   }
 });
+
+// const getImageUrl = (imageNameWithExtension) => new URL(`./src/assets/pics/${imageNameWithExtension}`, import.meta.url).href;
+const getImageUrl = (path) => {
+  return new URL(`../assets/pics/${path}`, import.meta.url).href;
+};
 </script>
 
 <template>
-  <img class="profilepicture" @click="$emit('changeTheme')" :src="`src/assets/pics/profile${(themeDark)?'Orange':'Blue'}.png`" alt="Profile Pic">
+  <!-- <img class="profilepicture" @click="$emit('changeTheme')" :src="`./src/assets/pics/profile${(themeDark)?'Orange':'Blue'}.png`" alt="Profile Pic"> -->
+  <img class="profilepicture" @click="$emit('changeTheme')" :src="getImageUrl(`profile${(themeDark)?'Orange':'Blue'}.png`)" alt="Profile Pic">
   <footer class="footer-container">
     <div class="top-container">
       <h1 class="mycolor">{{ data_content.name }}</h1>
@@ -54,6 +60,7 @@ const {data_content = null, links_content = null, themeDark = false} = definePro
   border-radius: 48%;
   min-height: 2rem;
   max-height: 6rem;
+  /* cursor: pointer; */
   /*width: 100%; */
 }
 .footer-container{
