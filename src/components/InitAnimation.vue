@@ -56,25 +56,9 @@
     </div>
 </template>
 <style scoped>
-:root {
-    --hue: 223;
-    --bg: #000000;
-    --fg: hsl(var(--hue),90%,10%);
-    --trans-dur: 0.2s;
-    font-size: calc(16px + (24 - 16) * (100vw - 320px) / (2560 - 320));
-}
 div {
     height: 100vh;
-    width: 100vw;
     display: flex;
-
-    background-color: var(--bg);
-	color: var(--fg);
-	display: flex;
-	font: 1em/1.5 sans-serif;
-	transition:
-		background-color var(--trans-dur),
-		color var(--trans-dur);
 }
 .pl {
 	display: block;
