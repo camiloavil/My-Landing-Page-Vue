@@ -1,12 +1,12 @@
 <script setup>
-import NavBar from './components/NavBar.vue';
-import MyBrand from './components/MyBrand.vue'
-import MyContent from './components/MyContent.vue'
-import linksjson from './assets/json/links.json';
-import content_en_json from './assets/json/content_en.json';
-import content_es_json from './assets/json/content_es.json';
-import theme from './assets/scripts/theme.js'
-import { ref, onMounted , watch, computed } from 'vue'
+import NavBar from '@/components/NavBar.vue';
+import MyBrand from '@/components/MyBrand.vue'
+import MyContent from '@/components/MyContent.vue'
+import content from '@/assets/scripts/getContent.js';
+import linksjson from '@/assets/json/links.json';
+import content_en_json from '@/assets/json/content_en.json';
+import content_es_json from '@/assets/json/content_es.json';
+import { ref, onMounted, computed } from 'vue'
 
 const dark_theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches)
 const lang = ref('en')
@@ -30,21 +30,11 @@ const data_content = computed(() => {
   }
 })
 
-watch(dark_theme, async (newTheme) => {
-  if (!newTheme) {
-    theme.setLightTheme()
-  }else{
-    theme.setDarkTheme()
-  }
-})
 onMounted(() => {
-  if (dark_theme.value) {
-    theme.setDarkTheme();
-  } else {
-    theme.setLightTheme();
-  }
+  console.log('mounted')
+  console.log(content.getContent());
 });
-
+//https://api.github.com/users/camiloavil/repos
 </script>
 
 <template>
@@ -59,9 +49,13 @@ onMounted(() => {
       <MyContent :content="data_content.projects" />
     </section>
   </main>
+  <footer>
+
+  </footer>
 </template>
 
 <style scoped>
+
 header {
   width: 100%;
   height: 30px;
@@ -69,9 +63,9 @@ header {
   /* padding: 2px; */
   /* line-height: 1.2; */
 }
-
+/* 
 .navbar {
-  /* background-color: azure; */
+  background-color: azure;
   align-items: center;
   display: flex;
   justify-content: space-between;
@@ -79,8 +73,8 @@ header {
   width: 70%;
   text-align: center;
   list-style: none;
-  /* border-bottom: 1px solid currentColor; */
-}
+  border-bottom: 1px solid currentColor;
+} */
 .big-wrapper {
   max-width: 1280px;
   margin: 0 auto;

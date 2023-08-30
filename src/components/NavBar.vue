@@ -1,6 +1,10 @@
 <script setup>
+import theme from '@/assets/scripts/theme.js'
+import { toRefs, watch } from 'vue';
 
-const {language, themeDark} = defineProps({
+// const dark_theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches)
+
+const props = defineProps({
   language: {
     type: String,
     required: true
@@ -10,6 +14,15 @@ const {language, themeDark} = defineProps({
     required: true
   }
 });
+const { language, themeDark } = toRefs(props);
+
+watch(themeDark, async (newTheme) => {
+  if (!newTheme) {
+    theme.setLightTheme()
+  }else{
+    theme.setDarkTheme()
+  }
+})
 </script>
 
 <template>
