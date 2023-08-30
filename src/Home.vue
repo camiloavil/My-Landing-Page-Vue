@@ -8,6 +8,8 @@ import content_en_json from '@/assets/json/content_en.json';
 import content_es_json from '@/assets/json/content_es.json';
 import { ref, onMounted, computed } from 'vue'
 
+const userGithub = ref('camiloavil')
+const dataGithub = ref(null)
 const dark_theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches)
 const lang = ref('en')
 const links_content = ref(linksjson)
@@ -21,7 +23,9 @@ function changeLanguage() {
     document.documentElement.lang ='en'
   }
 }
-
+const showGithubprojects = computed(async () => {
+  return (dataGithub.value && dataGithub.value.length > 0)
+})
 const data_content = computed(() => {
   if (lang.value === 'en') {
     return content_en_json;
@@ -30,11 +34,11 @@ const data_content = computed(() => {
   }
 })
 
-onMounted(() => {
-  console.log('mounted')
-  console.log(content.getContent());
+onMounted(async () => {
+  dataGithub.value = await content.getContent(userGithub.value);
+  console.log(dataGithub.value);
+  // console.log(data_content.value.projects);
 });
-//https://api.github.com/users/camiloavil/repos
 </script>
 
 <template>
@@ -45,8 +49,8 @@ onMounted(() => {
     <section class="wrapper">
       <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
     </section>
-    <section v-show="data_content.projects.length > 0">
-      <MyContent :content="data_content.projects" />
+    <section v-if="showGithubprojects">
+      <MyContent name="GitHub" :content="dataGithub" :content_old="data_content.projects" />
     </section>
   </main>
   <footer>

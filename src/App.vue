@@ -26,9 +26,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <Transition>
+  <!-- <Transition> -->
     <Home/>
-  </Transition>
+  <!-- </Transition> -->
 </template>
 
 <style scoped>

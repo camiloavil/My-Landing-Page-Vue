@@ -1,23 +1,36 @@
 <script setup>
 import ProjectItem from './ProjectItem.vue'
 import IconCustom from './icons/IconCustom.vue'
-// import EcosystemIcon from './icons/IconEcosystem.vue'
+import { onMounted, toRefs } from 'vue';
 
-defineProps({
-  content: {
+const props = defineProps({
+  name:{
+    type: String,
+    required: true
+  },
+  content:{
+    type: Object,
+    required: true
+  },
+  content_old: {
     type: Object,
     required: true
   }
 });
+const { name, content, content_old } = toRefs(props);
+onMounted(() => {
+  console.log(`Content is mounted ${name.value}`)
+  console.log(content.value)
+})
 </script>
 
 <template>
-  <ProjectItem v-for="project in content" :key="project.id">
+  <ProjectItem v-for="project in content_old" :key="project.id">
     <template #icon>
       <IconCustom class="icons" :myicon="project.icon"/>
     </template>
     <template #heading>{{project.name}}{{ project.open_source ? ' [OPEN SOURCE]' : '' }}</template>
-    {{ project.description }}
+      {{ project.description }}
     <div v-show="project.links.length > 0">
       <a v-for="p_link in project.links" :key="p_link.id" :href="p_link.url" target="_blank" rel="noopener">{{p_link.name}} </a>
     </div>
@@ -25,6 +38,7 @@ defineProps({
 
   <ProjectItem>
     <template #icon>
+
     </template>
     <template #heading>Testing</template>
 
