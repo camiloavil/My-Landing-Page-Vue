@@ -21,11 +21,12 @@ export default {
                 item.description.toLowerCase().includes(repo_filter) &&
                 !item.private
             );
-
+            // https://api.github.com/repos/camiloavil/prettycash/languages
+            // https://api.github.com/users/camiloavil/repos
             const mappedData = filteredData.map(item => ({
-                name: item.name,
+                name: item.name.replaceAll('-' , ' ').replaceAll('_' , ' ').toUpperCase(),
                 html_url: item.html_url,
-                description: item.description,
+                description: item.description.charAt(0).toUpperCase() + item.description.slice(1),
                 languages_url: item.languages_url,
                 created_at: item.created_at,
                 updated_at: item.updated_at,

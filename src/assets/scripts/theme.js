@@ -6,7 +6,7 @@ export default {
         document.documentElement.style.setProperty('--color-border', 'var(--vt-c-divider-light-2)');
         document.documentElement.style.setProperty('--color-border-hover', 'var(--vt-c-divider-light-1)');
         document.documentElement.style.setProperty('--color-heading', 'var(--vt-c-text-light-1)');
-        document.documentElement.style.setProperty('--color-text', 'var(--vt-c-text-light-1)');
+        document.documentElement.style.setProperty('--color-text', 'var(--vt-c-text-light-2)');
         document.documentElement.style.setProperty('--color-links', 'var(--vt-c-blue)');
     
     },

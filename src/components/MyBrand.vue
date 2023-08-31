@@ -1,5 +1,5 @@
 <script setup>
-import LogoLink from './icons/LogoLink.vue';
+import LogoLink from '@/components/icons/LogoLink.vue';
 
 defineEmits(['changeTheme'])
 
@@ -25,7 +25,7 @@ const getImageUrl = (path) => {
 </script>
 
 <template>
-  <!-- <img class="profilepicture" @click="$emit('changeTheme')" :src="`./src/assets/pics/profile${(themeDark)?'Orange':'Blue'}.png`" alt="Profile Pic"> -->
+  <!-- <img class="profilepicture" @click="$emit('changeTheme')" :src="getImageUrl(`profile${(themeDark)?'Orange':'Blue'}.png`)" alt="Profile Pic"> -->
   <img class="profilepicture" @click="$emit('changeTheme')" :src="getImageUrl(`profile${(themeDark)?'Orange':'Blue'}.png`)" alt="Profile Pic">
   <footer class="footer-container">
     <div class="top-container">
@@ -61,7 +61,6 @@ const getImageUrl = (path) => {
   min-height: 2rem;
   max-height: 6rem;
   /* cursor: pointer; */
-  /*width: 100%; */
 }
 .footer-container{
   display: block; 
@@ -83,8 +82,8 @@ h4 {
 }
 
 .logo {
+  /* margin: auto 1rem; */
   fill: var(--color-text);
-  margin: auto 1rem;
   min-width: 1rem;
   max-width: 1.8rem;
 }
@@ -106,6 +105,10 @@ h4 {
 }
 
 @media (min-width: 1024px) {
+  .profilepicture {
+    cursor: pointer;
+    max-height: 12rem;
+  }
   h1 {
     font-weight: 500;
     /* font-size: 46px;  */
@@ -131,7 +134,6 @@ h4 {
     /* border-right: 1px solid var(--color-border); */
   }
   .logo {
-    margin-left: 2rem;
     min-width: 1rem;
     max-width: 3rem;
   }

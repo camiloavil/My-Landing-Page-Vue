@@ -38,20 +38,21 @@ a,
   transition: 0.4s;
 }
 
-/* @media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-} */
 
 @media (min-width: 1024px) {
   body {
     display: flex;
     place-items: center;
     max-width: 2000px;
-
+    
   }
-
+  /* a:hover {
+    border-radius: 10px;
+    background-color: hsla(160, 100%, 37%, 0.2);
+  } */
+  /* @media (hover: hover) {
+  } */
+  
   /* #app {
     display: grid;
     grid-template-columns: 1fr 1fr;

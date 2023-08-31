@@ -49,57 +49,76 @@ onMounted(async () => {
     <section class="wrapper">
       <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
     </section>
-    <section v-if="showGithubprojects">
-      <MyContent name="GitHub" :content="dataGithub" :content_old="data_content.projects" />
+    <section class="content" v-if="showGithubprojects">
+      <MyContent :content="dataGithub"/>
     </section>
   </main>
   <footer>
-
+    <span>{{ 'Camilo Avila © 2023. All Rights Reserved.' }}</span>
   </footer>
 </template>
 
 <style scoped>
 
 header {
+  transition: color 0.5s, background-color 0.5s;
+  background-color: var(--color-background);
   width: 100%;
   height: 30px;
   border-bottom: 1px solid var(--color-border);
-  /* padding: 2px; */
-  /* line-height: 1.2; */
-}
-/* 
-.navbar {
-  background-color: azure;
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin: 0.5rem auto;
-  width: 70%;
-  text-align: center;
-  list-style: none;
-  border-bottom: 1px solid currentColor;
-} */
-.big-wrapper {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 1rem 0.2rem;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
+main {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2.2rem 0.2rem;
+}
 .wrapper {
   width: 100%;
   display: flex;
-  margin-bottom: 1.5rem;
+  /* margin-bottom: 1.3rem; */
+  /* margin-right: 25px; */
+  justify-content: center;
+}
+.content {
+  /* margin-top: 1.5rem; */
+  /* max-width: 1280px; */
+  margin: 0 auto;
+  padding: 0 0.2rem;
+}
+
+footer {
+  transition: color 0.5s, background-color 0.5s;
+  background-color: var(--color-background);
+  border-top: 1px solid var(--color-border);
+  width: 80%;
+  height: 13px;
+  font-size: 0.7rem;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50% , -50%);
+  display: flex;
   justify-content: center;
 }
 
 @media (min-width: 1024px) {
+  header {
+      width: 70%;
+      height: 50px;
+    }
   .big-wrapper {
     display: grid;
     grid-template-columns: 0.7fr 1.3fr;
   }
 
-  .brand {
-    margin-top: 32px;
+  .wrapper {
+    /* margin: 0 1rem 0 0 ; */
+    padding-right: 5rem;
   }
 
   .profilepicture {

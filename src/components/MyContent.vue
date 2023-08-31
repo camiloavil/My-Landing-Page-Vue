@@ -1,59 +1,39 @@
 <script setup>
 import ProjectItem from './ProjectItem.vue'
 import Icon from './icons/Icon.vue'
-import { onMounted, toRefs, watch } from 'vue';
+import { ref, onMounted, toRefs, watch } from 'vue';
+
+const viewWidth = ref(window.innerWidth);
 
 const props = defineProps({
-  name:{
-    type: String,
-    required: true
-  },
   content:{
     type: Array,
     default: () => [],
   },
-  content_old: {
-    type: Object,
-    default: () => {},
-  }
 });
 
-const { name, content } = toRefs(props);
+const { content } = toRefs(props);
 onMounted(() => {
-  console.log(`Content is mounted ${name.value}`)
+  console.log(`Content is mounted ${viewWidth.value}`)
   console.log(content.value)
 })
 </script>
 
 <template>
-  <ProjectItem v-for="project in content" :key="project.id">
+  <ProjectItem v-for="{id, name, description, url_icon} in content" :key="id">
     <template #icon>
-      <Icon class="icons" :url_icon="project.url_icon"/>
-      <!-- <Icon class="icons" :url_icon="'https://raw.githubusercontent.com/camiloavil/prettycash/main/icon.svg'"/> -->
+      <Icon class="icons" :url_icon="url_icon"/>
     </template>
-    <template #heading>{{project.name}}</template>
-      {{ project.description }}
+    <template #heading>
+      {{name}}
+    </template>
+    <template #description>
+      {{ description }}
+    </template>
     <!-- <div v-show="project.links.length > 0">
       <a v-for="p_link in project.links" :key="p_link.id" :href="p_link.url" target="_blank" rel="noopener">{{p_link.name}} </a>
     </div> -->
   </ProjectItem>
-
-  <ProjectItem>
-    <template #icon>
-
-    </template>
-    <template #heading>Testing</template>
-
-    This parragraf is a testing.:
-    <a href="https://camiloavil.com" target="_blank" rel="noopener">Camilo</a>,
-    <!-- <a href="https://router.vuejs.org/" target="_blank" rel="noopener">Vue Router</a>,
-    <a href="https://test-utils.vuejs.org/" target="_blank" rel="noopener">Vue Test Utils</a>, and
-    <a href="https://github.com/vuejs/devtools" target="_blank" rel="noopener">Vue Dev Tools</a>. If
-    you need more resources, we suggest paying
-    <a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">Awesome Vue</a>
-    a visit. -->
-  </ProjectItem>
-
 </template>
 
 <style scoped>
@@ -63,7 +43,15 @@ onMounted(() => {
   fill: var(--color-text);
 }
 .icons:hover {
-  cursor: pointer;
   fill: var(--color-links);
+}
+@media (min-width: 1024px) {
+  .icons {
+    width: 40px;
+    height: 40px;
+  }
+  .icons:hover {
+    cursor: pointer;
+  }
 }
 </style>
