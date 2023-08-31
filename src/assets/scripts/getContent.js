@@ -23,19 +23,30 @@ export default {
             );
             // https://api.github.com/repos/camiloavil/prettycash/languages
             // https://api.github.com/users/camiloavil/repos
-            const mappedData = filteredData.map(item => ({
-                name: item.name.replaceAll('-' , ' ').replaceAll('_' , ' ').toUpperCase(),
-                html_url: item.html_url,
-                description: item.description.charAt(0).toUpperCase() + item.description.slice(1),
-                languages_url: item.languages_url,
-                created_at: item.created_at,
-                updated_at: item.updated_at,
-                homepage: item.homepage,
-                language: item.language,
-                license: item.license,
-                topics: item.topics,
-                url_icon: `${endPoint_rawGithub}${item.owner.login}/${item.name}/main/icon.svg`,
-            }));
+            const mappedData = filteredData.map((item) => {
+                const links = [{
+                    name: "Github Repository",
+                    url: item.html_url,
+                }];
+                if (item.homepage){
+                    links.push({
+                        name: "Website",
+                        url: item.homepage,
+                    })
+                }
+                return{
+                    name: item.name.replaceAll('-' , ' ').replaceAll('_' , ' ').toUpperCase(),
+                    description: item.description.charAt(0).toUpperCase() + item.description.slice(1),
+                    languages_url: item.languages_url,
+                    created_at: item.created_at,
+                    updated_at: item.updated_at,
+                    links: links,
+                    language: item.language,
+                    license: item.license,
+                    topics: item.topics,
+                    url_icon: `${endPoint_rawGithub}${item.owner.login}/${item.name}/main/icon.svg`,
+                }
+            });
             console.log(mappedData);
             return mappedData;
         } catch (err) {

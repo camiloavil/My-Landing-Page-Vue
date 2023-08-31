@@ -92,18 +92,19 @@ main {
 }
 
 footer {
-  transition: color 0.5s, background-color 0.5s;
+  /* transition: color 0.5s, background-color 0.5s; */
   background-color: var(--color-background);
   border-top: 1px solid var(--color-border);
-  width: 80%;
+  width: 100%;
   height: 13px;
   font-size: 0.7rem;
   position: fixed;
   bottom: 0;
   left: 50%;
-  transform: translate(-50% , -50%);
+  transform: translate(-50% , 0);
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 @media (min-width: 1024px) {

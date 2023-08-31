@@ -1,18 +1,24 @@
 <script setup>
+import Icon from '@/components/icons/IconStatic.vue';
 defineProps({
-  icon_data: {
-    type: Object,
+  name: {
+    type: String,
+    required: true
+  },
+  url: {
+    type: String,
     required: true
   }
 });
 </script>
 
 <template>
-  <a :href="icon_data.url" target="_blank">
-    <svg class="icon_link" xmlns="http://www.w3.org/2000/svg" v-bind:viewBox="icon_data.viewbox">
+  <a :href="url" target="_blank">
+    <Icon class="icon_link" :name="name" />
+    <!-- <svg class="icon_link" xmlns="http://www.w3.org/2000/svg" v-bind:viewBox="icon_data.viewbox">
       <title v-text="icon_data.name"/>
-      <path v-bind:d="icon_data.path_d"/>
-    </svg>
+      <path :d="icon_data.path_d"/>
+    </svg> -->
   </a>
 </template>
 

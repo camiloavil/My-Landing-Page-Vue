@@ -1,6 +1,7 @@
 <script setup>
-import ProjectItem from './ProjectItem.vue'
-import Icon from './icons/Icon.vue'
+import ProjectItem from '@/components/ProjectItem.vue'
+import Icon from '@/components/icons/IconDynamicUrl.vue'
+import LogoLink from './icons/LogoLink.vue';
 import { ref, onMounted, toRefs, watch } from 'vue';
 
 const viewWidth = ref(window.innerWidth);
@@ -14,13 +15,13 @@ const props = defineProps({
 
 const { content } = toRefs(props);
 onMounted(() => {
-  console.log(`Content is mounted ${viewWidth.value}`)
-  console.log(content.value)
+  console.log(`Content is mounted viewWidth.value ${viewWidth.value}`)
+  // console.log(content.value)
 })
 </script>
 
 <template>
-  <ProjectItem v-for="{id, name, description, url_icon} in content" :key="id">
+  <ProjectItem v-for="{id, name, description, url_icon, links} in content" :key="id" :description="description">
     <template #icon>
       <Icon class="icons" :url_icon="url_icon"/>
     </template>
@@ -30,9 +31,11 @@ onMounted(() => {
     <template #description>
       {{ description }}
     </template>
-    <!-- <div v-show="project.links.length > 0">
-      <a v-for="p_link in project.links" :key="p_link.id" :href="p_link.url" target="_blank" rel="noopener">{{p_link.name}} </a>
-    </div> -->
+    <template #links>
+      <div v-show="links.length > 0">
+        <LogoLink v-for="{id, name, url} in links" :name="name" :url="url" />
+      </div>
+    </template>
   </ProjectItem>
 </template>
 

@@ -40,10 +40,10 @@ const getImageUrl = (path) => {
     <div class="bottom-container">
       <div class="logos-container">
         <div v-if="links_content.links.length > 0" class="icon_container">
-          <LogoLink v-for="logo in links_content.links" :key="logo.id" :icon_data="logo"/>
+          <LogoLink v-for="{id, name, url} in links_content.links" :name="name" :url="url"/>
         </div>
         <div v-if="links_content.contacts.length > 0" class="icon_container">
-          <LogoLink v-for="logo in links_content.contacts" :key="logo.id" :icon_data="logo"/>
+          <LogoLink v-for="{id, name, url} in links_content.contacts" :name="name" :url="url"/>
         </div>
       </div>
       <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392 469">

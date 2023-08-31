@@ -1,3 +1,14 @@
+<script setup>
+import { toRefs, onMounted } from 'vue';
+
+const props = defineProps(['key', 'description']);
+const { key, description } = toRefs(props);
+
+onMounted(() => {
+  // console.log(`Project ${key.value} is mounted`);
+  // console.log(`Project ${description.value} is mounted`);
+})
+</script>
 <template>
   <div class="item">
     <i>
@@ -10,10 +21,12 @@
       <span>
         <slot name="description"></slot>
       </span>
+      <div>
+        <slot name="links"></slot>
+      </div>
     </div>
   </div>
 </template>
-
 <style scoped>
 .item {
   margin-top: 1.5rem;
