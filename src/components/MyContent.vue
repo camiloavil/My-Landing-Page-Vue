@@ -1,7 +1,7 @@
 <script setup>
 import ProjectItem from './ProjectItem.vue'
-import IconCustom from './icons/IconCustom.vue'
-import { onMounted, toRefs } from 'vue';
+import Icon from './icons/Icon.vue'
+import { onMounted, toRefs, watch } from 'vue';
 
 const props = defineProps({
   name:{
@@ -9,15 +9,16 @@ const props = defineProps({
     required: true
   },
   content:{
-    type: Object,
-    required: true
+    type: Array,
+    default: () => [],
   },
   content_old: {
     type: Object,
-    required: true
+    default: () => {},
   }
 });
-const { name, content, content_old } = toRefs(props);
+
+const { name, content } = toRefs(props);
 onMounted(() => {
   console.log(`Content is mounted ${name.value}`)
   console.log(content.value)
@@ -25,15 +26,16 @@ onMounted(() => {
 </script>
 
 <template>
-  <ProjectItem v-for="project in content_old" :key="project.id">
+  <ProjectItem v-for="project in content" :key="project.id">
     <template #icon>
-      <IconCustom class="icons" :myicon="project.icon"/>
+      <Icon class="icons" :url_icon="project.url_icon"/>
+      <!-- <Icon class="icons" :url_icon="'https://raw.githubusercontent.com/camiloavil/prettycash/main/icon.svg'"/> -->
     </template>
-    <template #heading>{{project.name}}{{ project.open_source ? ' [OPEN SOURCE]' : '' }}</template>
+    <template #heading>{{project.name}}</template>
       {{ project.description }}
-    <div v-show="project.links.length > 0">
+    <!-- <div v-show="project.links.length > 0">
       <a v-for="p_link in project.links" :key="p_link.id" :href="p_link.url" target="_blank" rel="noopener">{{p_link.name}} </a>
-    </div>
+    </div> -->
   </ProjectItem>
 
   <ProjectItem>
@@ -58,6 +60,7 @@ onMounted(() => {
 .icons {
   width: 25px;
   height: 25px;
+  fill: var(--color-text);
 }
 .icons:hover {
   cursor: pointer;

@@ -3,7 +3,7 @@ const repo_filter='open source';
 const endPoint_examplePic = 'https://pic.camiloavil.com/pictures/example/'
 const endPoint_author = 'https://pic.camiloavil.com/author/'
 const endPoint_githubUsers = 'https://api.github.com/users/'
-
+const endPoint_rawGithub = 'https://raw.githubusercontent.com/'
 export default {
     /**
      * Retrieves content from the GitHub API based on a user's name.
@@ -32,9 +32,10 @@ export default {
                 homepage: item.homepage,
                 language: item.language,
                 license: item.license,
-                topics: item.topics
+                topics: item.topics,
+                url_icon: `${endPoint_rawGithub}${item.owner.login}/${item.name}/main/icon.svg`,
             }));
-
+            console.log(mappedData);
             return mappedData;
         } catch (err) {
             console.error(err);

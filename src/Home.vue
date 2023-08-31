@@ -9,7 +9,8 @@ import content_es_json from '@/assets/json/content_es.json';
 import { ref, onMounted, computed } from 'vue'
 
 const userGithub = ref('camiloavil')
-const dataGithub = ref(null)
+// const dataGithub = ref([{name:"1",description:"1desc"},{name:"2",description:"2desc"}])
+const dataGithub = ref([])
 const dark_theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches)
 const lang = ref('en')
 const links_content = ref(linksjson)
@@ -35,9 +36,8 @@ const data_content = computed(() => {
 })
 
 onMounted(async () => {
-  dataGithub.value = await content.getContent(userGithub.value);
-  console.log(dataGithub.value);
-  // console.log(data_content.value.projects);
+  let data = await content.getContent(userGithub.value);
+  dataGithub.value.push(...data);
 });
 </script>
 
