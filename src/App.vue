@@ -7,7 +7,7 @@ const Home = defineAsyncComponent({
   loader: () => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(import("@/Home.vue"));
+        resolve(import("@/MyHome.vue"));
       }, 1000);
     })
   },
@@ -26,10 +26,19 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- <Transition> -->
+  <Transition>
     <Home/>
-  <!-- </Transition> -->
+  </Transition>
 </template>
 
 <style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
 </style>

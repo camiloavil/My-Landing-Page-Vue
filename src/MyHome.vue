@@ -1,3 +1,25 @@
+<template>
+    <header>
+      <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
+    </header>
+    <main class="big-wrapper">
+      <Transition>
+        <section class="wrapper">
+          <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
+        </section>
+      </Transition>
+      <Transition>
+        <section class="content" v-if="showGithubprojects">
+          <MyContent :content="dataGithub"/>
+        </section>
+      </Transition>
+      </main>
+    <footer>
+      <span>{{ 'Camilo Avila © 2023. All Rights Reserved.' }}</span>
+    </footer>
+</template>
+
+
 <script setup>
 import NavBar from '@/components/NavBar.vue';
 import MyBrand from '@/components/MyBrand.vue'
@@ -9,7 +31,6 @@ import content_es_json from '@/assets/json/content_es.json';
 import { ref, onMounted, computed } from 'vue'
 
 const userGithub = ref('camiloavil')
-// const dataGithub = ref([{name:"1",description:"1desc"},{name:"2",description:"2desc"}])
 const dataGithub = ref([])
 const dark_theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches)
 const lang = ref('en')
@@ -24,7 +45,7 @@ function changeLanguage() {
     document.documentElement.lang ='en'
   }
 }
-const showGithubprojects = computed(async () => {
+const showGithubprojects = computed( () => {
   return (dataGithub.value && dataGithub.value.length > 0)
 })
 const data_content = computed(() => {
@@ -41,31 +62,21 @@ onMounted(async () => {
 });
 </script>
 
-<template>
-  <header>
-    <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
-  </header>
-  <main class="big-wrapper">
-    <section class="wrapper">
-      <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
-    </section>
-    <section class="content" v-if="showGithubprojects">
-      <MyContent :content="dataGithub"/>
-    </section>
-  </main>
-  <footer>
-    <span>{{ 'Camilo Avila © 2023. All Rights Reserved.' }}</span>
-  </footer>
-</template>
-
 <style scoped>
+.v-enter-active{
+  transition: opacity 3.5s ease;
+}
+.v-enter-from {
+  opacity: 0;
+}
 
 header {
+  z-index: 5;
   transition: color 0.5s, background-color 0.5s;
   background-color: var(--color-background);
+  border-bottom: 1px solid var(--color-border);
   width: 100%;
   height: 30px;
-  border-bottom: 1px solid var(--color-border);
   position: fixed;
   top: 0;
   left: 50%;
@@ -80,9 +91,9 @@ main {
 .wrapper {
   width: 100%;
   display: flex;
+  /* justify-content: center; */
   /* margin-bottom: 1.3rem; */
   /* margin-right: 25px; */
-  justify-content: center;
 }
 .content {
   /* margin-top: 1.5rem; */
@@ -109,17 +120,21 @@ footer {
 
 @media (min-width: 1024px) {
   header {
-      width: 70%;
-      height: 50px;
-    }
+    width: 70%;
+    height: 50px;
+  }
   .big-wrapper {
     display: grid;
     grid-template-columns: 0.7fr 1.3fr;
   }
-
+  
   .wrapper {
+    /* display: grid; */
+    place-items: center;
     /* margin: 0 1rem 0 0 ; */
     padding-right: 5rem;
+    height: 100%;
+    /* align-items: center; */
   }
 
   .profilepicture {
