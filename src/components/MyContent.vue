@@ -2,7 +2,7 @@
 import ProjectItem from '@/components/ProjectItem.vue'
 import Icon from '@/components/icons/IconDynamicUrl.vue'
 import LogoLink from './icons/LogoLink.vue';
-import { ref, onMounted, toRefs, watch } from 'vue';
+import { ref, onMounted, toRefs } from 'vue';
 
 const viewWidth = ref(window.innerWidth);
 
@@ -33,7 +33,7 @@ onMounted(() => {
     </template>
     <template #links>
       <div v-show="links.length > 0">
-        <LogoLink v-for="{id, name, url} in links" :name="name" :url="url" />
+        <LogoLink v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
       </div>
     </template>
   </ProjectItem>
