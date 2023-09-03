@@ -1,13 +1,13 @@
 <script setup>
-import { toRefs, onMounted } from 'vue';
+// import { toRefs, onMounted } from 'vue';
 
-const props = defineProps(['key', 'description']);
-const { key, description } = toRefs(props);
+// const props = defineProps(['key', 'description']);
+// const { key, description } = toRefs(props);
 
-onMounted(() => {
+// onMounted(() => {
   // console.log(`Project ${key.value} is mounted`);
   // console.log(`Project ${description.value} is mounted`);
-})
+// })
 </script>
 <template>
   <div class="item">
@@ -18,9 +18,9 @@ onMounted(() => {
       <h3>
         <slot name="heading"></slot>
       </h3>
-      <span>
+      <p>
         <slot name="description"></slot>
-      </span>
+      </p>
       <div>
         <slot name="links"></slot>
       </div>

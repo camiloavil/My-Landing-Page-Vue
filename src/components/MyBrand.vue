@@ -92,7 +92,7 @@ h4 {
   fill: var(--color-links);
 }
 .icon_container {
-  align-items: right;
+  display: flex;
   margin-bottom: 0.3rem;
 }
 .bottom-container{

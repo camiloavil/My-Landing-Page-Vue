@@ -20,7 +20,8 @@ defineProps({
 
 <style scoped>
 a{
-  text-align: center;
+  display: flex;
+  align-items: center;
 }
 .icon_link{
   fill: var(--color-text);

@@ -17,6 +17,7 @@ const Home = defineAsyncComponent({
   // timeout: 2000,
 })
 onMounted(() => {
+  console.log(Home.value);
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     theme.setDarkTheme();
   } else {

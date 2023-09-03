@@ -46,7 +46,7 @@ div {
   align-items: center;
 }
 span .links {
-  padding-right: 0 15px;
+  padding-right: 15px;
 }
 .icons {
   width: 25px;
