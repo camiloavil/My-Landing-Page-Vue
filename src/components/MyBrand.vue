@@ -1,9 +1,10 @@
 <script setup>
+import { toRefs } from 'vue';
 import LogoLink from '@/components/icons/LogoLink.vue';
 
 defineEmits(['changeTheme'])
 
-const {data_content = null, links_content = null, themeDark = false} = defineProps({
+const props = defineProps({
   data_content: {
     type: Object,
     required: true
@@ -17,7 +18,7 @@ const {data_content = null, links_content = null, themeDark = false} = definePro
     required: true
   }
 });
-
+const { data_content, links_content, themeDark } = toRefs(props);
 // const getImageUrl = (imageNameWithExtension) => new URL(`./src/assets/pics/${imageNameWithExtension}`, import.meta.url).href;
 const getImageUrl = (path) => {
   return new URL(`../assets/pics/${path}`, import.meta.url).href;
@@ -40,10 +41,10 @@ const getImageUrl = (path) => {
     <div class="bottom-container">
       <div class="logos-container">
         <div v-if="links_content.links.length > 0" class="icon_container">
-          <LogoLink v-for="{id, name, url} in links_content.links" :name="name" :url="url"/>
+          <LogoLink v-for="{id, name, url} in links_content.links" :key="id" :name="name" :url="url"/>
         </div>
         <div v-if="links_content.contacts.length > 0" class="icon_container">
-          <LogoLink v-for="{id, name, url} in links_content.contacts" :name="name" :url="url"/>
+          <LogoLink v-for="{id, name, url} in links_content.contacts" :key="id" :name="name" :url="url"/>
         </div>
       </div>
       <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392 469">

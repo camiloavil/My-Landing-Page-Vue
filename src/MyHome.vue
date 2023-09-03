@@ -4,16 +4,20 @@
     </header>
     <main class="big-wrapper">
       <Transition>
-        <section class="wrapper">
+        <section class="wrapper" v-if="true">
           <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
         </section>
+      </Transition>
+      <Transition>
+        <div v-if="!showGithubprojects">Spinner</div>
+        <!-- <InitAnimation v-if="!showGithubprojects"/> -->
       </Transition>
       <Transition>
         <section class="content" v-if="showGithubprojects">
           <MyContent :content="dataGithub"/>
         </section>
       </Transition>
-      </main>
+    </main>
     <footer>
       <span>{{ 'Camilo Avila © 2023. All Rights Reserved.' }}</span>
     </footer>
@@ -64,7 +68,7 @@ onMounted(async () => {
 
 <style scoped>
 .v-enter-active{
-  transition: opacity 3.5s ease;
+  transition: opacity 1.7s ease;
 }
 .v-enter-from {
   opacity: 0;
@@ -84,16 +88,14 @@ header {
 }
 
 main {
-  max-width: 1280px;
+  height: 100%;
+  display: block;
   margin: 0 auto;
   padding: 2.2rem 0.2rem;
 }
 .wrapper {
-  width: 100%;
+  /* width: 100%; */
   display: flex;
-  /* justify-content: center; */
-  /* margin-bottom: 1.3rem; */
-  /* margin-right: 25px; */
 }
 .content {
   /* margin-top: 1.5rem; */
@@ -119,22 +121,20 @@ footer {
 }
 
 @media (min-width: 1024px) {
+  main {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 2.2rem 1rem;
+  }
   header {
     width: 70%;
     height: 50px;
   }
-  .big-wrapper {
-    display: grid;
-    grid-template-columns: 0.7fr 1.3fr;
-  }
   
   .wrapper {
-    /* display: grid; */
     place-items: center;
-    /* margin: 0 1rem 0 0 ; */
     padding-right: 5rem;
-    height: 100%;
-    /* align-items: center; */
+    place-self: center;
   }
 
   .profilepicture {

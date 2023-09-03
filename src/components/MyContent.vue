@@ -33,6 +33,7 @@ onMounted(() => {
     </template>
     <template #links>
       <div v-show="links.length > 0">
+        <span class="links">links: </span>
         <LogoLink v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
       </div>
     </template>
@@ -40,6 +41,13 @@ onMounted(() => {
 </template>
 
 <style scoped>
+div {
+  display: flex;
+  align-items: center;
+}
+span .links {
+  padding-right: 0 15px;
+}
 .icons {
   width: 25px;
   height: 25px;

@@ -57,7 +57,7 @@
 </template>
 <style scoped>
 .v-leave-active {
-  transition: opacity 5.5s ease;
+  transition: opacity 0.2s ease;
 }
 
 .v-leave-to {
