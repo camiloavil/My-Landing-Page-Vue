@@ -17,7 +17,9 @@
 
   --vt-c-indigo: #2c3e50;
   --vt-c-blue: rgb(20, 137, 233);
+  --vt-c-blue-2:  #84cdfa;
   --vt-c-orange: rgb(233, 161, 67);
+  --vt-c-orange-2: #90a544;
   --vt-c-animation-start: hsl(283, 91%, 49%);
   --vt-c-animation-end: rgb(20, 137, 233);
 
@@ -26,8 +28,6 @@
   --vt-c-divider-dark-1: rgba(84, 84, 84, 0.65);
   --vt-c-divider-dark-2: rgba(84, 84, 84, 0.48);
 
-  /* --vt-c-text-light-1: var(--vt-c-indigo);
-  --vt-c-text-light-2: rgba(60, 60, 60, 0.66); */
   --vt-c-text-light-1: var(--vt-c-black);
   --vt-c-text-light-2: rgba(60, 60, 60, 0.808);
   --vt-c-text-dark-1: var(--vt-c-white);

@@ -8,7 +8,7 @@ export default {
         document.documentElement.style.setProperty('--color-heading', 'var(--vt-c-text-light-1)');
         document.documentElement.style.setProperty('--color-text', 'var(--vt-c-text-light-2)');
         document.documentElement.style.setProperty('--color-links', 'var(--vt-c-blue)');
-    
+        document.documentElement.style.setProperty('--color-links-2', 'var(--vt-c-blue-2)');
     },
     setDarkTheme() {
         document.documentElement.style.setProperty('--color-background', 'var(--vt-c-black)');
@@ -19,5 +19,6 @@ export default {
         document.documentElement.style.setProperty('--color-heading', 'var(--vt-c-text-dark-1)');
         document.documentElement.style.setProperty('--color-text', 'var(--vt-c-text-dark-2)');
         document.documentElement.style.setProperty('--color-links', 'var(--vt-c-orange)');
+        document.documentElement.style.setProperty('--color-links-2', 'var(--vt-c-orange-2)');
     }
 }
