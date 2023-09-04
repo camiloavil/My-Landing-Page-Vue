@@ -3,16 +3,15 @@
       <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
     </header>
     <main class="big-wrapper">
-      <Transition>
-        <section class="wrapper" v-if="true">
+      <Transition name="showUp">
+        <section class="wrapper" v-if="showGithubprojects">
           <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
         </section>
       </Transition>
-      <Transition>
-        <div v-if="!showGithubprojects">Spinner</div>
-        <!-- <InitAnimation v-if="!showGithubprojects"/> -->
-      </Transition>
-      <Transition>
+      <!-- <Transition name="disappear">
+        <MyLoader v-if="!showGithubprojects"/>
+      </Transition> -->
+      <Transition name="showUp">
         <section class="content" v-if="showGithubprojects">
           <MyContent :content="dataGithub"/>
         </section>
@@ -32,6 +31,7 @@ import content from '@/assets/scripts/getContent.js';
 import linksjson from '@/assets/json/links.json';
 import content_en_json from '@/assets/json/content_en.json';
 import content_es_json from '@/assets/json/content_es.json';
+// import MyLoader from '@/components/MyLoader.vue';
 import { ref, onMounted, computed } from 'vue'
 
 const userGithub = ref('camiloavil')
@@ -51,14 +51,14 @@ function changeLanguage() {
 }
 const showGithubprojects = computed( () => {
   return (dataGithub.value && dataGithub.value.length > 0)
-})
+});
 const data_content = computed(() => {
   if (lang.value === 'en') {
     return content_en_json;
   }else{
     return content_es_json;
   }
-})
+});
 
 onMounted(async () => {
   let data = await content.getContent(userGithub.value);
@@ -67,10 +67,10 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.v-enter-active{
-  transition: opacity 1.7s ease;
+.showUp-enter-active{
+  transition: opacity 0.7s ease;
 }
-.v-enter-from {
+.showUp-enter-from {
   opacity: 0;
 }
 
@@ -86,7 +86,6 @@ header {
   left: 50%;
   transform: translateX(-50%);
 }
-
 main {
   height: 100%;
   display: block;

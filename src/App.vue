@@ -33,12 +33,12 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.v-enter-active,
+/* .v-enter-active, */
 .v-leave-active {
   transition: opacity 0.3s ease;
 }
 
-.v-enter-from,
+/* .v-enter-from, */
 .v-leave-to {
   opacity: 0;
 }
