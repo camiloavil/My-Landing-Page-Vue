@@ -12,12 +12,20 @@ const props = defineProps({
     default: () => [],
   },
 });
-
 const { content } = toRefs(props);
+const formatDescription = (description) => {
+  let limitCharacters = (viewWidth.value < 1024)? 50 : 100;
+  let endDescription = description.length > limitCharacters? '...' : '.'
+  return (description.slice(0, limitCharacters) + endDescription);
+};
+const handleResize = () => {
+  viewWidth.value = window.innerWidth;
+};
 onMounted(() => {
   console.log(`Content is mounted viewWidth.value ${viewWidth.value}`)
+  window.addEventListener('resize', handleResize);
   // console.log(content.value)
-})
+});
 </script>
 
 <template>
@@ -30,7 +38,7 @@ onMounted(() => {
       {{name}}
     </template>
     <template #description>
-      {{ description }}
+      {{ formatDescription(description) }}
     </template>
     <template #links>
       <div v-show="links.length > 0">

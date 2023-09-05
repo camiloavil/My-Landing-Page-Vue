@@ -8,14 +8,20 @@
   // console.log(`Project ${key.value} is mounted`);
   // console.log(`Project ${description.value} is mounted`);
 // })
+const selected = () => {
+  console.log('selected')
+};
+const Over = () => {
+  console.log('over')
+};
 </script>
 <template>
   <div class="item">
-    <i>
+    <i @click="selected">
       <slot name="icon"></slot>
     </i>
     <div class="details">
-      <h3>
+      <h3 @click="selected" @mouseover="Over" @mouseleave="Over">
         <slot name="heading"></slot>
       </h3>
       <p>
