@@ -21,6 +21,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <h2>My Portfolio</h2>
   <ProjectItem v-for="{id, name, description, url_icon, links} in content" :key="id" :description="description">
     <template #icon>
       <Icon class="icons" :url_icon="url_icon"/>
@@ -41,6 +42,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
+h2{
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
 div {
   display: flex;
   align-items: center;
@@ -57,6 +63,10 @@ span .links {
   fill: var(--color-links);
 }
 @media (min-width: 1024px) {
+  h2{
+    font-size: 2rem;
+    font-weight: 700;
+  }
   .icons {
     width: 40px;
     height: 40px;

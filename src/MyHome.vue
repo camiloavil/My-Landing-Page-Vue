@@ -1,28 +1,3 @@
-<template>
-    <header>
-      <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
-    </header>
-    <main class="big-wrapper">
-      <Transition name="showUp">
-        <section class="wrapper" v-if="showGithubprojects">
-          <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
-        </section>
-      </Transition>
-      <!-- <Transition name="disappear">
-        <MyLoader v-if="!showGithubprojects"/>
-      </Transition> -->
-      <Transition name="showUp">
-        <section class="content" v-if="showGithubprojects">
-          <MyContent :content="dataGithub"/>
-        </section>
-      </Transition>
-    </main>
-    <footer>
-      <span>{{ 'Camilo Avila © 2023. All Rights Reserved.' }}</span>
-    </footer>
-</template>
-
-
 <script setup>
 import NavBar from '@/components/NavBar.vue';
 import MyBrand from '@/components/MyBrand.vue'
@@ -65,6 +40,30 @@ onMounted(async () => {
   dataGithub.value.push(...data);
 });
 </script>
+
+<template>
+  <header>
+    <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
+  </header>
+  <main class="big-wrapper">
+    <Transition name="showUp">
+      <section class="wrapper" v-if="showGithubprojects">
+        <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
+      </section>
+    </Transition>
+    <!-- <Transition name="disappear">
+      <MyLoader v-if="!showGithubprojects"/>
+    </Transition> -->
+    <Transition name="showUp">
+      <section class="content" v-if="showGithubprojects">
+        <MyContent :content="dataGithub"/>
+      </section>
+    </Transition>
+  </main>
+  <footer>
+    <span>{{ 'Camilo Avila © 2023. All Rights Reserved.' }}</span>
+  </footer>
+</template>
 
 <style scoped>
 .showUp-enter-active{
@@ -129,7 +128,6 @@ footer {
     width: 70%;
     height: 50px;
   }
-  
   .wrapper {
     place-items: center;
     padding-right: 5rem;

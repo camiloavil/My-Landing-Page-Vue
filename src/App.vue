@@ -8,16 +8,15 @@ const Home = defineAsyncComponent({
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(import("@/MyHome.vue"));
-      }, 1000);
+      }, 500);
     })
   },
   loadingComponent: InitAnimation,
   delay: 0,
   // errorComponent: ErrorComponent,
   // timeout: 2000,
-})
+});
 onMounted(() => {
-  console.log(Home.value);
   if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
     theme.setDarkTheme();
   } else {
@@ -27,6 +26,7 @@ onMounted(() => {
 </script>
 
 <template>
+  <!-- <h1 v-if="!HomeReady">Hola</h1> -->
   <Transition>
     <Home/>
   </Transition>
