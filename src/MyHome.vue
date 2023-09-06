@@ -45,7 +45,7 @@ onMounted(async () => {
   <header>
     <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
   </header>
-  <main class="big-wrapper">
+  <main>
     <Transition name="initialShowUp" appear>
       <section class="wrapper" v-if="showGithubprojects">
         <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
@@ -83,7 +83,7 @@ main {
   height: 100%;
   display: block;
   margin: 0 auto;
-  padding: 2.2rem 0.2rem;
+  padding: 30px 15px 13px;
 }
 .wrapper {
   /* width: 100%; */
@@ -116,22 +116,23 @@ footer {
   main {
     display: grid;
     grid-template-columns: 1fr 2fr;
-    padding: 2.2rem 1rem;
+    padding: 50px 25px 25px;
   }
   header {
     width: 70%;
     height: 50px;
   }
   .wrapper {
+    display: block;
     place-items: center;
     padding-right: 5rem;
     place-self: center;
   }
 
-  .profilepicture {
+  /* .profilepicture {
     margin: 0 0 0 0;
     max-height: 15rem;
-  }
+  } */
 
   /* header {
     display: flex;
@@ -139,8 +140,7 @@ footer {
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
   } */
-
-  .wrapper {
-    display: block;
-  }
+  footer {
+  height: 23px;
+}
 }</style>

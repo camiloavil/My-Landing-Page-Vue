@@ -33,7 +33,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <h2>My Portfolio</h2>
+  <title>
+    My Portfolio
+    <h2>My Portfolio</h2>
+  </title>
   <!-- <TransitionGroup> -->
     <section>
       <ProjectItem 
@@ -83,7 +86,9 @@ onMounted(() => {
 h2{
   font-size: 1.2rem;
   font-weight: 600;
-  /* position: fixed; */
+  position: absolute;
+  top: 50px;
+  left: 10px;
   padding: 0.2rem 0;
 }
 .sectionLinks {
