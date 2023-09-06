@@ -1,7 +1,7 @@
 import axios from 'axios'
 const repo_filter='open source';
 const endPoint_examplePic = 'https://pic.camiloavil.com/pictures/example/'
-const endPoint_author = 'https://pic.camiloavil.com/author/'
+// const endPoint_author = 'https://pic.camiloavil.com/author/'
 const endPoint_githubUsers = 'https://api.github.com/users/'
 const endPoint_rawGithub = 'https://raw.githubusercontent.com/'
 export default {
@@ -35,6 +35,7 @@ export default {
                     })
                 }
                 return{
+                    id: item.id,
                     name: item.name.replaceAll('-' , ' ').replaceAll('_' , ' ').toUpperCase(),
                     description: item.description.charAt(0).toUpperCase() + item.description.slice(1),
                     languages_url: item.languages_url,
@@ -45,6 +46,7 @@ export default {
                     license: item.license,
                     topics: item.topics,
                     url_icon: `${endPoint_rawGithub}${item.owner.login}/${item.name}/main/icon.svg`,
+                    showType: 'normal',
                 }
             });
             console.log(mappedData);

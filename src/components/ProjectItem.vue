@@ -1,18 +1,11 @@
 <script setup>
-// import { toRefs, onMounted } from 'vue';
+import { toRefs } from 'vue';
 
-// const props = defineProps(['key', 'description']);
-// const { key, description } = toRefs(props);
+const props = defineProps(['id']);
+const { id } = toRefs(props);
 
-// onMounted(() => {
-  // console.log(`Project ${key.value} is mounted`);
-  // console.log(`Project ${description.value} is mounted`);
-// })
 const selected = () => {
-  console.log('selected')
-};
-const Over = () => {
-  console.log('over')
+  console.log(`Clicked ${id.value}`);
 };
 </script>
 <template>
@@ -21,7 +14,7 @@ const Over = () => {
       <slot name="icon"></slot>
     </i>
     <div class="details">
-      <h3 @click="selected" @mouseover="Over" @mouseleave="Over">
+      <h3 @click="selected">
         <slot name="heading"></slot>
       </h3>
       <p>
@@ -33,24 +26,34 @@ const Over = () => {
     </div>
   </div>
 </template>
-<style scoped>
+
+<style scoped >
+
+.selected-effectCard::after,
+.selected-effectCard::before {
+  display: none;
+}
+.selected-effectCard h3{
+  font-weight: 700;
+  color: var(--color-links);
+}
+.selected-effectCard .details{
+  margin-left: 0.3rem;
+}
+
 .item {
   margin-top: 1.5rem;
   display: flex;
   position: relative;
-  border-radius: 25px;
-  /* border-top-right-radius: 25px;
-  border-bottom-right-radius: 25px; */
+  border-radius: 15px;
+  transition: 0.4s ease;
 }
-/* .item:hover{
-  border: 2px solid var(--color-border);
-} */
 
 .details {
   flex: 1;
-  margin-left: 1rem;
+  margin-left: 0.5rem;
+  transition: 0.4s ease;
 }
-
 i {
   background: var(--color-background);
   margin-left: 0.5rem;
@@ -69,22 +72,31 @@ h3 {
   font-weight: 500;
   margin-bottom: 0.4rem;
   color: var(--color-heading);
+  transition: 0.4s ease;
 }
-h3:hover{
-  color: var(--color-links); 
-}
+/* h3:hover{
+  font-weight: 700;
+} */
 
 @media (min-width: 1024px) {
+  .selected-effectCard h3{
+    font-weight: 900;
+  }
+  .selected-effectCard .details{
+    margin-left: 0;
+  }
   .item {
     margin-top: 0;
     padding: 0.4rem 0 1rem var(--section-gap);
   }
-
+  .details {
+    margin-left: 1rem;
+  }
   i {
     margin: 0;
     /* top: calc(50% - 25px); */
     position: absolute;
-    left: -26px;
+    left: -25px;
     width: 50px;
     height: 50px;
   }
@@ -94,7 +106,9 @@ h3:hover{
     font-weight: 700;
     cursor: pointer;
   }
-
+  /* h3:hover{
+    font-weight: 900;
+  } */
   .item:before {
     content: ' ';
     border-left: 1px solid var(--color-border);
@@ -113,11 +127,8 @@ h3:hover{
     height: calc(50% - 25px);
   }
 
+  .item:last-of-type:after,
   .item:first-of-type:before {
-    display: none;
-  }
-
-  .item:last-of-type:after {
     display: none;
   }
 }

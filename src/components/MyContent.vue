@@ -18,24 +18,34 @@ const formatDescription = (description) => {
   let endDescription = description.length > limitCharacters? '...' : '.'
   return (description.slice(0, limitCharacters) + endDescription);
 };
-const handleResize = () => {
-  viewWidth.value = window.innerWidth;
+const selectItem = (id, selector) => {
+  if (selector === false) {
+    content.value.forEach(item => item.showType = 'normal');
+  }else{
+    content.value.find(item => item.id === id).showType = 'show';
+    content.value.filter(item => item.id !== id).forEach(item => item.showType = 'hide');
+  }
 };
+const handleResize = () => { viewWidth.value = window.innerWidth };
 onMounted(() => {
-  console.log(`Content is mounted viewWidth.value ${viewWidth.value}`)
   window.addEventListener('resize', handleResize);
-  // console.log(content.value)
 });
 </script>
 
 <template>
   <h2>My Portfolio</h2>
-  <ProjectItem v-for="{id, name, description, url_icon, links} in content" :key="id" :description="description">
+  <ProjectItem 
+    @mouseover="selectItem(id, true)" @mouseleave="selectItem(id, false)"
+    :class="{'blur-effectCard': showType === 'hide', 'selected-effectCard': showType === 'show'}" 
+    v-for="{ id, name, description, url_icon, links, showType } in content" 
+    :key="id" :id="id"
+  >
     <template #icon>
       <Icon class="icons" :url_icon="url_icon"/>
     </template>
     <template #heading>
-      {{name}}
+      <span>{{ name }}</span>
+      <!-- {{name}} -->
     </template>
     <template #description>
       {{ formatDescription(description) }}
@@ -50,6 +60,19 @@ onMounted(() => {
 </template>
 
 <style scoped>
+
+.blur-effectCard {
+  filter: blur(1px);
+  transform: scale(0.9);
+}
+
+.selected-effectCard {
+  /* z-index: 2; */
+  filter: blur(0);
+  /* background-color: var(--color-background); */
+  transform: scale(1);
+  border: 3px solid var(--color-border);
+}
 h2{
   font-size: 1.2rem;
   font-weight: 600;
@@ -71,6 +94,17 @@ span .links {
   fill: var(--color-links);
 }
 @media (min-width: 1024px) {
+  .blur-effectCard {
+    filter: blur(1px);
+    transform: scale(0.9);
+  }
+  .selected-effectCard {
+    background-color: var(--color-background);
+    /* z-index: 2; */
+    filter: blur(0);
+    transform: scale(1.1);
+    border: 3px solid var(--color-border);
+  }
   h2{
     font-size: 2rem;
     font-weight: 700;
