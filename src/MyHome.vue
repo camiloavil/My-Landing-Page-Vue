@@ -66,10 +66,9 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-
 header {
   z-index: 5;
-  transition: color 0.5s, background-color 0.5s;
+  transition: color 0.4s, background-color 0.4s;
   background-color: var(--color-background);
   border-bottom: 1px solid var(--color-border);
   width: 100%;
@@ -90,9 +89,8 @@ main {
   display: flex;
 }
 .content {
-  /* margin-top: 1.5rem; */
   /* max-width: 1280px; */
-  margin: 0 auto;
+  /* margin: 0 auto; */
   padding: 0 0.2rem;
 }
 
@@ -115,7 +113,7 @@ footer {
 @media (min-width: 1024px) {
   main {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 0.8fr 2.2fr;
     padding: 50px 25px 25px;
   }
   header {
@@ -125,21 +123,12 @@ footer {
   .wrapper {
     display: block;
     place-items: center;
-    padding-right: 5rem;
+    padding-right: 1.2rem;
     place-self: center;
   }
-
-  /* .profilepicture {
-    margin: 0 0 0 0;
-    max-height: 15rem;
-  } */
-
-  /* header {
-    display: flex;
-    line-height: 1.5;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  } */
+  .content {
+  padding: 0 4rem;
+}
   footer {
   height: 23px;
 }
