@@ -58,6 +58,7 @@ const selected = () => {
 i {
   background: var(--color-background);
   margin-left: 0.5rem;
+  /* top: calc(50% - 25px);  */
   display: grid;
   place-items: center;
   place-content: center;
@@ -95,7 +96,7 @@ h3 {
   }
   i {
     margin: 0;
-    /* top: calc(50% - 25px); */
+    top: calc(50% - 25px);
     position: absolute;
     left: -25px;
     width: 50px;
