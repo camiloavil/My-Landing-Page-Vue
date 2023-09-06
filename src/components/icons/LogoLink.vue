@@ -18,7 +18,7 @@ defineProps({
   </a>
 </template>
 
-<style>
+<style scoped>
 a{
   display: flex;
   align-items: center;
@@ -27,7 +27,7 @@ a{
   fill: var(--color-text);
   height: 1.6rem;
   padding: 0.2rem 0.6rem;
-  transition: 0.4s ease;
+  transition: var(--vt-c-transition-normal) ease;
 }
 .icon_link:hover{
   fill: var(--color-links);

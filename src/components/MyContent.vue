@@ -13,7 +13,7 @@ const props = defineProps({
   },
 });
 const { content } = toRefs(props);
-const formatDescription = (description) => {
+const formatDescription = (id, description) => {
   let limitCharacters = (viewWidth.value < 1024)? 50 : 100;
   let endDescription = description.length > limitCharacters? '...' : '.'
   return (description.slice(0, limitCharacters) + endDescription);
@@ -34,29 +34,33 @@ onMounted(() => {
 
 <template>
   <h2>My Portfolio</h2>
-  <ProjectItem 
-    @mouseover="selectItem(id, true)" @mouseleave="selectItem(id, false)"
+  <!-- <TransitionGroup> -->
+    <section>
+      <ProjectItem 
+      v-for="{ id, name, description, url_icon, links, showType } in content" 
+      @mouseover="selectItem(id, true)" @mouseleave="selectItem(id, false)"
     :class="{'blur-effectCard': showType === 'hide', 'selected-effectCard': showType === 'show'}" 
-    v-for="{ id, name, description, url_icon, links, showType } in content" 
     :key="id" :id="id"
-  >
-    <template #icon>
-      <Icon class="icons" :url_icon="url_icon"/>
-    </template>
-    <template #heading>
-      <span>{{ name }}</span>
-      <!-- {{name}} -->
-    </template>
-    <template #description>
-      {{ formatDescription(description) }}
-    </template>
-    <template #links>
-      <div v-show="links.length > 0">
-        <span class="links-seccion">links: </span>
-        <LogoLink class="links" v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
-      </div>
-    </template>
-  </ProjectItem>
+    >
+      <template #icon>
+        <Icon class="icons" :url_icon="url_icon"/>
+      </template>
+      <template #heading>
+        <span>{{ name }}</span>
+        <!-- {{name}} -->
+      </template>
+      <template #description>
+        {{ formatDescription(id, description) }}
+      </template>
+      <template #links>
+        <div class="sectionLinks" v-show="links.length">
+          <span class="links-seccion">links: </span>
+          <LogoLink class="links" v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
+        </div>
+      </template>
+    </ProjectItem>
+  </section>
+  <!-- </TransitionGroup> -->
 </template>
 
 <style scoped>
@@ -73,15 +77,16 @@ onMounted(() => {
 }
 .selected-effectCard .icons{
   fill: var(--color-links);
-  transition: 0.4s ease;
+  transition: var(--vt-c-transition-normal) ease;
 }
 
 h2{
   font-size: 1.2rem;
   font-weight: 600;
-  /* padding: 0.2rem 0; */
+  /* position: fixed; */
+  padding: 0.2rem 0;
 }
-div {
+.sectionLinks {
   display: flex;
   align-items: center;
 }

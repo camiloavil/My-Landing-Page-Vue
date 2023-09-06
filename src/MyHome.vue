@@ -46,7 +46,7 @@ onMounted(async () => {
     <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
   </header>
   <main class="big-wrapper">
-    <Transition name="showUp">
+    <Transition name="initialShowUp" appear>
       <section class="wrapper" v-if="showGithubprojects">
         <MyBrand :data_content="data_content" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
       </section>
@@ -54,7 +54,7 @@ onMounted(async () => {
     <!-- <Transition name="disappear">
       <MyLoader v-if="!showGithubprojects"/>
     </Transition> -->
-    <Transition name="showUp">
+    <Transition name="initialShowUp" appear>
       <section class="content" v-if="showGithubprojects">
         <MyContent :content="dataGithub"/>
       </section>
@@ -66,12 +66,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-.showUp-enter-active{
-  transition: opacity 0.7s ease;
-}
-.showUp-enter-from {
-  opacity: 0;
-}
 
 header {
   z-index: 5;

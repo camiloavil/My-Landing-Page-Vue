@@ -27,9 +27,9 @@ onMounted(() => {
 
 <template>
   <!-- <h1 v-if="!HomeReady">Hola</h1> -->
-  <Transition>
+  <!-- <Transition> -->
     <Home/>
-  </Transition>
+  <!-- </Transition> -->
 </template>
 
 <style scoped>

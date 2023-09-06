@@ -47,13 +47,13 @@ const selected = () => {
   display: flex;
   position: relative;
   border-radius: 15px;
-  transition: 0.4s ease;
+  transition: var(--vt-c-transition-normal) ease;
 }
 
 .details {
   flex: 1;
   margin-left: 0.5rem;
-  transition: 0.4s ease;
+  transition: var(--vt-c-transition-normal) ease;
 }
 i {
   background: var(--color-background);
@@ -73,7 +73,7 @@ h3 {
   font-weight: 500;
   margin-bottom: 0.4rem;
   color: var(--color-heading);
-  transition: 0.4s ease;
+  transition: var(--vt-c-transition-normal) ease;
 }
 /* h3:hover{
   font-weight: 700;

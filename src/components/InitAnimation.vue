@@ -1,5 +1,5 @@
 <template>
-	<Transition>
+	<Transition name="FadeDesapear">
 		<div>
 			<svg class="pl" viewBox="0 0 128 128" width="128px" height="128px">
 				<defs>
