@@ -34,6 +34,7 @@ const selected = () => {
   display: none;
 }
 .selected-effectCard h3{
+  /* font-size: 1.3rem; */
   font-weight: 700;
   color: var(--color-links);
 }

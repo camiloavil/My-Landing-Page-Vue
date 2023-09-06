@@ -52,8 +52,8 @@ onMounted(() => {
     </template>
     <template #links>
       <div v-show="links.length > 0">
-        <span class="links">links: </span>
-        <LogoLink v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
+        <span class="links-seccion">links: </span>
+        <LogoLink class="links" v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
       </div>
     </template>
   </ProjectItem>
@@ -67,17 +67,20 @@ onMounted(() => {
 }
 
 .selected-effectCard {
-  /* z-index: 2; */
   filter: blur(0);
-  /* background-color: var(--color-background); */
   transform: scale(1);
   border: 3px solid var(--color-border);
 }
+.selected-effectCard .icons{
+  fill: var(--color-links);
+  transition: 0.4s ease;
+}
+
 h2{
   font-size: 1.2rem;
   font-weight: 600;
+  /* padding: 0.2rem 0; */
 }
-
 div {
   display: flex;
   align-items: center;
@@ -90,9 +93,9 @@ span .links {
   height: 25px;
   fill: var(--color-text);
 }
-.icons:hover {
+/* .icons:hover {
   fill: var(--color-links);
-}
+} */
 @media (min-width: 1024px) {
   .blur-effectCard {
     filter: blur(1px);
