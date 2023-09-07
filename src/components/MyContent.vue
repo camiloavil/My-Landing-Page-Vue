@@ -69,10 +69,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
-/* 
+
 .initialShowUp-move{
   transition: all 0.3s ease;
-} */
+}
 
 .blur-effectCard {
   filter: blur(1px);

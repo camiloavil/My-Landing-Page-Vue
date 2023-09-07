@@ -55,7 +55,7 @@ const selected = () => {
 }
 
 i {
-  transition: var(--vt-c-transition-slow) ease;
+  transition: var(--vt-c-transition-fast) ease;
   background: var(--color-background);
   border: 1px solid var(--color-border);
   /* margin-left: 0.5rem; */
@@ -71,7 +71,8 @@ i {
 }
 
 h3 {
-  transition: var(--vt-c-transition-slow) ease;
+  display: inline;
+  transition: var(--vt-c-transition-fast) ease;
   color: var(--color-heading);
   font-size: 1rem;
   font-weight: 500;
@@ -83,6 +84,14 @@ h3 {
     font-size: 1.2rem;
     font-weight: 700;
   }
+  .selected-effectCard h3:hover{
+    font-size: 1.3rem;
+    font-weight: 800;
+  }
+  .selected-effectCard i:hover{
+    transform: scale(1.2);
+  }
+
   .selected-effectCard .details{
     margin-left: 0;
   }
