@@ -58,10 +58,10 @@ onMounted(() => {
           {{ formatDescription(id, description) }}
         </template>
         <template #links>
-          <div class="sectionLinks" v-show="links.length">
+          <section class="sectionLinks" v-if="links.length">
             <span class="links-seccion">links: </span>
             <LogoLink class="links" v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
-          </div>
+          </section>
         </template>
       </ProjectItem>
     </TransitionGroup>
@@ -98,9 +98,7 @@ h2{
   display: flex;
   align-items: center;
 }
-span .links {
-  padding-right: 15px;
-}
+
 .icons {
   transition: var(--vt-c-transition-slow) ease;
   width: 25px;

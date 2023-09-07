@@ -55,10 +55,6 @@ const getImageUrl = (path) => {
 </template>
 
 <style scoped>
-.links:hover {
-  transition: var(--vt-c-transition-fast) ease;
-  transform: scale(1.4);
-}
 
 .profilepicture {
   margin: auto 0.5rem;
