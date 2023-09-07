@@ -88,7 +88,7 @@ main {
 .content {
   /* max-width: 1280px; */
   /* margin: 0 auto; */
-  padding: 0 0.2rem;
+  padding: 0 1rem;
 }
 
 footer {
@@ -124,9 +124,9 @@ footer {
     place-self: center;
   }
   .content {
-  padding: 0 5rem;
-}
+    padding: 0 5rem;
+  }
   footer {
-  height: 23px;
-}
+    height: 23px;
+  }
 }</style>

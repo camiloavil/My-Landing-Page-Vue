@@ -28,46 +28,61 @@ const selected = () => {
 </template>
 
 <style scoped >
-.selected-effectCard::after,
-.selected-effectCard::before {
-  display: none;
-}
 .selected-effectCard h3{
   font-weight: 700;
   color: var(--color-links);
 }
+.selected-effectCard i{
+  /* margin-left: 0.5rem; */
+  position: absolute;
+  top: calc(50%);
+  left: calc(0% - 16px); 
+}
 .selected-effectCard .details{
   margin-left: 0.3rem;
 }
+.selected-effectCard .details p{
+  display: block;
+  padding-left: 16px;
+}
+.selected-effectCard .details div {
+  /* transition: var(--vt-c-transition-fast) ease; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
 
 .item {
-  transition: var(--vt-c-transition-slow) ease;
-  margin-top: 1.5rem;
+  transition: var(--vt-c-transition-normal) ease;
+  margin: 1rem 0.2rem;
+  padding: 0.3rem 0.2rem;
   display: flex;
+  align-items: center;
+  justify-content: flex-start;
   position: relative;
   border-radius: 15px;
 }
-
+.details p,
+.details div {
+  display: none;
+}
 .details {
+  /* esto aumenta retardo en el dark and light mode */
   /* transition: var(--vt-c-transition-slow) ease; */
   /* flex: 1; */
-  margin-left: 0.5rem;
+  margin-left: 1rem;
 }
 
 i {
   transition: var(--vt-c-transition-fast) ease;
   background: var(--color-background);
   border: 1px solid var(--color-border);
-  /* margin-left: 0.5rem; */
-  /* position: absolute; */
-  /* top: calc(50% - 25px);  */
   display: grid;
   place-items: center;
   place-content: center;
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  /* color: var(--color-text); */
 }
 
 h3 {
@@ -75,11 +90,15 @@ h3 {
   transition: var(--vt-c-transition-fast) ease;
   color: var(--color-heading);
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 700;
   margin-bottom: 0.4rem;
 }
 
 @media (min-width: 1024px) {
+  .selected-effectCard::after,
+  .selected-effectCard::before {
+    display: none;
+  }
   .selected-effectCard h3{
     font-size: 1.2rem;
     font-weight: 700;
@@ -95,16 +114,28 @@ h3 {
   .selected-effectCard .details{
     margin-left: 0;
   }
+  .selected-effectCard .details div {
+    display: block;
+  }
+  .selected-effectCard .details p{
+    display: block;
+    padding-left: 0px;
+  }
   .selected-effectCard i{
     top: calc(10%);
   }
-  
   .item {
-    margin-top: 0;
-    padding: 0.4rem 0 1rem var(--section-gap);
+    margin: 0;
+    padding: 0.4rem 0 0.4rem var(--section-gap);
+    justify-content: flex-start;
   }
   .details {
     margin-left: 1rem;
+  }  
+
+  .details p,
+  .details div {
+    display: block;
   }
   i {
     margin: 0;

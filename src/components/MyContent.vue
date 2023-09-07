@@ -70,28 +70,28 @@ onMounted(() => {
 
 <style scoped>
 
-.initialShowUp-move{
-  transition: all 0.3s ease;
-}
-
 .blur-effectCard {
+  /* z-index: -1; */
   filter: blur(1px);
   transform: scale(0.9);
 }
 
 .selected-effectCard {
+  /* z-index: 5; */
   background-color: var(--color-background-soft);
   border: 3px solid var(--color-border);
+  margin-left: 15px;
   filter: blur(0);
-  transform: scale(1);
+  transform: scale(1.12);
+  /* padding-left: 1rem; */
 }
 .selected-effectCard .icons{
   fill: var(--color-links);
 }
 
 h2{
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.3rem;
+  font-weight: 700;
   padding: 0.2rem 0;
 }
 .sectionLinks {
@@ -100,7 +100,7 @@ h2{
 }
 
 .icons {
-  transition: var(--vt-c-transition-slow) ease;
+  transition: var(--vt-c-transition-fast) ease;
   width: 25px;
   height: 25px;
   fill: var(--color-text);
@@ -112,6 +112,8 @@ h2{
     transform: scale(0.9);
   }
   .selected-effectCard {
+    margin: 0;
+    /* padding-left: 5px; */
     filter: blur(0);
     transform: scale(1.1);
     border: 3px solid var(--color-border);
