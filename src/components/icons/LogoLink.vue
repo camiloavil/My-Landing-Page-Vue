@@ -24,14 +24,16 @@ a{
   align-items: center;
 }
 .icon_link{
+  transition: var(--vt-c-transition-slow) ease;
   fill: var(--color-text);
   height: 1.6rem;
   padding: 0.2rem 0.6rem;
-  /* transition: var(--vt-c-transition-normal) ease; */
 }
+
 .icon_link:hover{
   fill: var(--color-links);
 }
+
 
 .selected-effectCard .icon_link {
   fill: var(--color-links);

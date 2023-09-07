@@ -33,7 +33,6 @@ const selected = () => {
   display: none;
 }
 .selected-effectCard h3{
-  /* font-size: 1.3rem; */
   font-weight: 700;
   color: var(--color-links);
 }
@@ -42,43 +41,42 @@ const selected = () => {
 }
 
 .item {
+  transition: var(--vt-c-transition-slow) ease;
   margin-top: 1.5rem;
   display: flex;
   position: relative;
   border-radius: 15px;
-  /* transition: var(--vt-c-transition-normal) ease; */
 }
 
 .details {
-  flex: 1;
+  /* transition: var(--vt-c-transition-slow) ease; */
+  /* flex: 1; */
   margin-left: 0.5rem;
-  /* transition: var(--vt-c-transition-normal) ease; */
 }
 
 i {
+  transition: var(--vt-c-transition-slow) ease;
   background: var(--color-background);
   border: 1px solid var(--color-border);
-  margin-left: 0.5rem;
-  top: calc(50% - 25px); 
+  /* margin-left: 0.5rem; */
+  /* position: absolute; */
+  /* top: calc(50% - 25px);  */
   display: grid;
   place-items: center;
   place-content: center;
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  color: var(--color-text);
+  /* color: var(--color-text); */
 }
 
 h3 {
-  /* transition: var(--vt-c-transition-normal) ease; */
+  transition: var(--vt-c-transition-slow) ease;
   color: var(--color-heading);
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 0.4rem;
 }
-/* h3:hover{
-  font-weight: 700;
-} */
 
 @media (min-width: 1024px) {
   .selected-effectCard h3{

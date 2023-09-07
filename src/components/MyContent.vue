@@ -18,7 +18,7 @@ const props = defineProps({
 });
 const { title, content } = toRefs(props);
 const formatDescription = (id, description) => {
-  let limitCharacters = (viewWidth.value < 1024)? 50 : 100;
+  let limitCharacters = (viewWidth.value < 1024)? 50 : 90;
   let endDescription = description.length > limitCharacters? '...' : '.'
   return (description.slice(0, limitCharacters) + endDescription);
 };
@@ -69,6 +69,10 @@ onMounted(() => {
 </template>
 
 <style scoped>
+/* 
+.initialShowUp-move{
+  transition: all 0.3s ease;
+} */
 
 .blur-effectCard {
   filter: blur(1px);
@@ -76,21 +80,18 @@ onMounted(() => {
 }
 
 .selected-effectCard {
+  background-color: var(--color-background-soft);
+  border: 3px solid var(--color-border);
   filter: blur(0);
   transform: scale(1);
-  border: 3px solid var(--color-border);
 }
 .selected-effectCard .icons{
   fill: var(--color-links);
-  /* transition: var(--vt-c-transition-normal) ease; */
 }
 
 h2{
   font-size: 1.2rem;
   font-weight: 600;
-  /* position: absolute;
-  top: 50px;
-  left: 10px; */
   padding: 0.2rem 0;
 }
 .sectionLinks {
@@ -101,21 +102,18 @@ span .links {
   padding-right: 15px;
 }
 .icons {
+  transition: var(--vt-c-transition-slow) ease;
   width: 25px;
   height: 25px;
   fill: var(--color-text);
 }
-/* .icons:hover {
-  fill: var(--color-links);
-} */
+
 @media (min-width: 1024px) {
   .blur-effectCard {
     filter: blur(1px);
     transform: scale(0.9);
   }
   .selected-effectCard {
-    background-color: var(--color-background);
-    /* z-index: 2; */
     filter: blur(0);
     transform: scale(1.1);
     border: 3px solid var(--color-border);

@@ -41,10 +41,10 @@ const getImageUrl = (path) => {
     <div class="bottom-container">
       <div class="logos-container">
         <div v-if="links_content.links.length > 0" class="icon_container">
-          <LogoLink v-for="{id, name, url} in links_content.links" :key="id" :name="name" :url="url"/>
+          <LogoLink class="links" v-for="{id, name, url} in links_content.links" :key="id" :name="name" :url="url"/>
         </div>
         <div v-if="links_content.contacts.length > 0" class="icon_container">
-          <LogoLink v-for="{id, name, url} in links_content.contacts" :key="id" :name="name" :url="url"/>
+          <LogoLink class="links" v-for="{id, name, url} in links_content.contacts" :key="id" :name="name" :url="url"/>
         </div>
       </div>
       <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392 469">
@@ -55,6 +55,10 @@ const getImageUrl = (path) => {
 </template>
 
 <style scoped>
+.links:hover {
+  transition: var(--vt-c-transition-fast) ease;
+  transform: scale(1.4);
+}
 
 .profilepicture {
   margin: auto 0.5rem;
