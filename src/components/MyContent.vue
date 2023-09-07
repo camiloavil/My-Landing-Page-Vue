@@ -7,21 +7,16 @@ import { ref, onMounted, toRefs } from 'vue';
 const viewWidth = ref(window.innerWidth);
 
 const props = defineProps({
-  title :{
-    type: String,
+  app_content :{
+    type: Object,
     required: true
   },
   content :{
     type: Array,
     default: () => [],
-  },
+  }
 });
-const { title, content } = toRefs(props);
-const formatDescription = (id, description) => {
-  let limitCharacters = (viewWidth.value < 1024)? 50 : 90;
-  let endDescription = description.length > limitCharacters? '...' : '.'
-  return (description.slice(0, limitCharacters) + endDescription);
-};
+const { app_content, content } = toRefs(props);
 const selectItem = (id, selector) => {
   if (selector === false) {
     content.value.forEach(item => item.showType = 'normal');
@@ -38,7 +33,7 @@ onMounted(() => {
 
 <template>
   <Transition name="initialShowUp" appear>
-    <h2>{{ title }}</h2>
+    <h2>{{ app_content.title }}</h2>
   </Transition>
   <section>
     <TransitionGroup name="initialShowUp" appear>
@@ -55,11 +50,11 @@ onMounted(() => {
           {{name}}
         </template>
         <template #description>
-          {{ formatDescription(id, description) }}
+          {{ description }}
         </template>
         <template #links>
           <section class="sectionLinks" v-if="links.length">
-            <span class="links-seccion">links: </span>
+            <span class="links-seccion">{{ app_content.textlinks }}</span>
             <LogoLink class="links" v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
           </section>
         </template>

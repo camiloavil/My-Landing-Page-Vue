@@ -54,7 +54,7 @@ onMounted(async () => {
       <MyLoader v-if="!showGithubprojects"/>
     </Transition> -->
     <section class="content" v-if="showGithubprojects">
-      <MyContent :title="data_content.title" :content="dataGithub"/>
+      <MyContent :app_content="data_content" :content="dataGithub"/>
     </section>
   </main>
   <footer>

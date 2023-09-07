@@ -70,7 +70,7 @@ const selected = () => {
   /* esto aumenta retardo en el dark and light mode */
   /* transition: var(--vt-c-transition-slow) ease; */
   /* flex: 1; */
-  margin-left: 1rem;
+  margin-left: 1.5rem;
 }
 
 i {
@@ -148,7 +148,7 @@ h3 {
 
   h3{
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
   }
 
