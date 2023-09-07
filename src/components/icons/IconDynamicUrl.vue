@@ -50,10 +50,10 @@ svg{
   position: absolute;
 }
 .rotateIcon-enter-active{
-  animation: rotateIconEnter 0.2s ease;
+  animation: rotateIconEnter var(--vt-c-transition-normal) ease;
 }
 .rotateIcon-leave-active {
-  animation: rotateIconLeave 0.2s ease;
+  animation: rotateIconLeave var(--vt-c-transition-normal) ease;
 }
 
 @keyframes rotateIconLeave{

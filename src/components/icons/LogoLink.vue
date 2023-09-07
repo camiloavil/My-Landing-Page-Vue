@@ -27,7 +27,7 @@ a{
   fill: var(--color-text);
   height: 1.6rem;
   padding: 0.2rem 0.6rem;
-  transition: var(--vt-c-transition-normal) ease;
+  /* transition: var(--vt-c-transition-normal) ease; */
 }
 .icon_link:hover{
   fill: var(--color-links);

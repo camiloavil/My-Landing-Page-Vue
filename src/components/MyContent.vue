@@ -7,12 +7,16 @@ import { ref, onMounted, toRefs } from 'vue';
 const viewWidth = ref(window.innerWidth);
 
 const props = defineProps({
-  content:{
+  title :{
+    type: String,
+    required: true
+  },
+  content :{
     type: Array,
     default: () => [],
   },
 });
-const { content } = toRefs(props);
+const { title, content } = toRefs(props);
 const formatDescription = (id, description) => {
   let limitCharacters = (viewWidth.value < 1024)? 50 : 100;
   let endDescription = description.length > limitCharacters? '...' : '.'
@@ -33,34 +37,35 @@ onMounted(() => {
 </script>
 
 <template>
-  <h2>My Portfolio</h2>
-  <!-- <TransitionGroup> -->
-    <section>
+  <Transition name="initialShowUp" appear>
+    <h2>{{ title }}</h2>
+  </Transition>
+  <section>
+    <TransitionGroup name="initialShowUp" appear>
       <ProjectItem 
-      v-for="{ id, name, description, url_icon, links, showType } in content" 
-      @mouseover="selectItem(id, true)" @mouseleave="selectItem(id, false)"
-    :class="{'blur-effectCard': showType === 'hide', 'selected-effectCard': showType === 'show'}" 
-    :key="id" :id="id"
-    >
-      <template #icon>
-        <Icon class="icons" :url_icon="url_icon"/>
-      </template>
-      <template #heading>
-        <span>{{ name }}</span>
-        <!-- {{name}} -->
-      </template>
-      <template #description>
-        {{ formatDescription(id, description) }}
-      </template>
-      <template #links>
-        <div class="sectionLinks" v-show="links.length">
-          <span class="links-seccion">links: </span>
-          <LogoLink class="links" v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
-        </div>
-      </template>
-    </ProjectItem>
+        v-for="{ id, name, description, url_icon, links, showType } in content" 
+        @mouseover="selectItem(id, true)" @mouseleave="selectItem(id, false)"
+        :class="{'blur-effectCard': showType === 'hide', 'selected-effectCard': showType === 'show'}" 
+        :key="id" :id="id"
+      >
+        <template #icon>
+          <Icon class="icons" :url_icon="url_icon"/>
+        </template>
+        <template #heading>
+          {{name}}
+        </template>
+        <template #description>
+          {{ formatDescription(id, description) }}
+        </template>
+        <template #links>
+          <div class="sectionLinks" v-show="links.length">
+            <span class="links-seccion">links: </span>
+            <LogoLink class="links" v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
+          </div>
+        </template>
+      </ProjectItem>
+    </TransitionGroup>
   </section>
-  <!-- </TransitionGroup> -->
 </template>
 
 <style scoped>
@@ -77,7 +82,7 @@ onMounted(() => {
 }
 .selected-effectCard .icons{
   fill: var(--color-links);
-  transition: var(--vt-c-transition-normal) ease;
+  /* transition: var(--vt-c-transition-normal) ease; */
 }
 
 h2{

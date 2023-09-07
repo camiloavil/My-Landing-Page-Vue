@@ -28,7 +28,6 @@ const selected = () => {
 </template>
 
 <style scoped >
-
 .selected-effectCard::after,
 .selected-effectCard::before {
   display: none;
@@ -47,34 +46,35 @@ const selected = () => {
   display: flex;
   position: relative;
   border-radius: 15px;
-  transition: var(--vt-c-transition-normal) ease;
+  /* transition: var(--vt-c-transition-normal) ease; */
 }
 
 .details {
   flex: 1;
   margin-left: 0.5rem;
-  transition: var(--vt-c-transition-normal) ease;
+  /* transition: var(--vt-c-transition-normal) ease; */
 }
+
 i {
   background: var(--color-background);
+  border: 1px solid var(--color-border);
   margin-left: 0.5rem;
-  /* top: calc(50% - 25px);  */
+  top: calc(50% - 25px); 
   display: grid;
   place-items: center;
   place-content: center;
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  border: 1px solid var(--color-border);
   color: var(--color-text);
 }
 
 h3 {
+  /* transition: var(--vt-c-transition-normal) ease; */
+  color: var(--color-heading);
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 0.4rem;
-  color: var(--color-heading);
-  transition: var(--vt-c-transition-normal) ease;
 }
 /* h3:hover{
   font-weight: 700;
@@ -82,11 +82,16 @@ h3 {
 
 @media (min-width: 1024px) {
   .selected-effectCard h3{
-    font-weight: 900;
+    font-size: 1.2rem;
+    font-weight: 700;
   }
   .selected-effectCard .details{
     margin-left: 0;
   }
+  .selected-effectCard i{
+    top: calc(10%);
+  }
+  
   .item {
     margin-top: 0;
     padding: 0.4rem 0 1rem var(--section-gap);
@@ -96,21 +101,19 @@ h3 {
   }
   i {
     margin: 0;
-    top: calc(50% - 25px);
     position: absolute;
+    top: calc(50% - 25px);
     left: -25px;
     width: 50px;
     height: 50px;
   }
 
   h3{
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 500;
     cursor: pointer;
   }
-  /* h3:hover{
-    font-weight: 900;
-  } */
+
   .item:before {
     content: ' ';
     border-left: 1px solid var(--color-border);

@@ -1,7 +1,11 @@
 {
-    "name": "Camilo Ávila",
-    "description" : "Full Stack software developer, Electronic Engineer.",
-    "nickname" : "@camiloavil",
-    "url_site" : "https://camiloavil.com/"
-    
+    "profile": {
+        "name": "Camilo Ávila",
+        "description" : "Full Stack software developer, Electronic Engineer.",
+        "nickname" : "@camiloavil",
+        "url_site" : "https://camiloavil.com/",
+        "github_username" : "camiloavil"
+    },
+    "title" : "My Portfolio",
+    "footer" : "Camilo Ávila © 2023. All Rights Reserved."
 }

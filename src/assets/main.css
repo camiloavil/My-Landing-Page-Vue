@@ -1,7 +1,6 @@
 @import './base.css';
 
 body {
-
   margin: 0 auto;
   place-items: center;
   min-width: 320px;
@@ -10,7 +9,7 @@ body {
 
   color: var(--color-text);
   background: var(--color-background);
-  transition: color 0.35s, background-color 0.35s;
+  transition: color calc(var(--vt-c-transition-normal) + 0.1s), background-color calc(var(--vt-c-transition-normal) + 0.1s);
 
 
   line-height: 1.6;
