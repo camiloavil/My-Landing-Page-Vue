@@ -1,10 +1,11 @@
 <script setup>
 import ProjectItem from '@/components/ProjectItem.vue'
-import Icon from '@/components/icons/IconDynamicUrl.vue'
+import IconDynamicUrl from '@/components/icons/IconDynamicUrl.vue'
 import LogoLink from './icons/LogoLink.vue';
 import { ref, onMounted, toRefs } from 'vue';
 
 const viewWidth = ref(window.innerWidth);
+const changeIcons = ref(false);
 
 const props = defineProps({
   app_content :{
@@ -28,6 +29,9 @@ const selectItem = (id, selector) => {
 const handleResize = () => { viewWidth.value = window.innerWidth };
 onMounted(() => {
   window.addEventListener('resize', handleResize);
+  setTimeout(() => {
+    changeIcons.value = true;
+  },1500);
 });
 </script>
 
@@ -40,11 +44,11 @@ onMounted(() => {
       <ProjectItem 
         v-for="({ id, name, description, url_icon, links, showType }, index) in content" 
         @mouseover="selectItem(id, true)" @mouseleave="selectItem(id, false)"
-        :class="{'blur-effectCard': showType === 'hide', 'selected-effectCard': showType === 'show'}" 
+        :class="{'blur-effectCard': showType === 'hide', 'selected-effectCard': showType === 'show', 'selected-gsap-effectCard': showType === 'show'}" 
         :key="index" :id="id" :index="index" 
       >
         <template #icon>
-          <Icon class="icons" :url_icon="url_icon"/>
+          <IconDynamicUrl class="icons" :url_icon="url_icon" :ready="changeIcons"/>
         </template>
         <template #heading>
           {{name}}
@@ -55,7 +59,7 @@ onMounted(() => {
         <template #links>
           <section class="sectionLinks" v-if="links.length">
             <span class="links-seccion">{{ app_content.textlinks }}</span>
-            <LogoLink class="links" v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
+            <LogoLink  v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
           </section>
         </template>
       </ProjectItem>
@@ -65,22 +69,16 @@ onMounted(() => {
 
 <style scoped>
 
-.blur-effectCard {
-  /* z-index: -1; */
-  filter: blur(1px);
-  transform: scale(0.9);
+.selected-gsap-effectCard {
+  /* & .icons{
+    fill: var(--color-links);
+  } */
+  /* Icon{
+    fill: var(--color-links);
+  } */
 }
 
-.selected-effectCard {
-  background-color: var(--color-background-soft);
-  border: 3px solid var(--color-border);
-  margin-left: 15px;
-  filter: blur(0);
-  transform: scale(1.12);
-}
-.selected-effectCard .icons{
-  fill: var(--color-links);
-}
+
 
 h2{
   font-size: 1.3rem;
@@ -100,17 +98,7 @@ h2{
 }
 
 @media (min-width: 1024px) {
-  .blur-effectCard {
-    filter: blur(1px);
-    transform: scale(0.9);
-  }
-  .selected-effectCard {
-    margin: 0;
-    /* padding-left: 5px; */
-    filter: blur(0);
-    transform: scale(1.1);
-    border: 3px solid var(--color-border);
-  }
+
   h2{
     font-size: 2rem;
     font-weight: 700;

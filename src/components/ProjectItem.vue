@@ -29,10 +29,8 @@ const appear = (el,done) => {
 <template>
   <Transition 
     appear
-    @before-appear="beforeAppear"
-    @appear="appear"
     >
-    <div class="item">
+    <div class="item-effectCard">
       <i @click="selected">
         <slot name="icon"></slot>
       </i>
@@ -52,6 +50,21 @@ const appear = (el,done) => {
 </template>
 
 <style scoped >
+
+
+.blur-effectCard {
+  /* z-index: -1; */
+  filter: blur(1px);
+  transform: scale(0.9);
+}
+.selected-effectCard {
+  background-color: var(--color-background-soft);
+  border: 3px solid var(--color-border);
+  margin-left: 15px;
+  filter: blur(0);
+  transform: scale(1.12);
+}
+
 .selected-effectCard h3{
   font-weight: 700;
   color: var(--color-links);
@@ -76,7 +89,7 @@ const appear = (el,done) => {
   justify-content: flex-end;
 }
 
-.item {
+.item-effectCard {
   transition: var(--vt-c-transition-normal) ease;
   margin: 1rem 0.2rem;
   padding: 0.3rem 0.2rem;
@@ -119,6 +132,17 @@ h3 {
 }
 
 @media (min-width: 1024px) {
+  .blur-effectCard {
+    filter: blur(1px);
+    transform: scale(0.9);
+  }
+  .selected-effectCard {
+    margin: 0;
+    /* padding-left: 5px; */
+    filter: blur(0);
+    transform: scale(1.1);
+    border: 3px solid var(--color-border);
+  }
   .selected-effectCard::after,
   .selected-effectCard::before {
     display: none;
@@ -148,7 +172,7 @@ h3 {
   .selected-effectCard i{
     top: calc(10%);
   }
-  .item {
+  .item-effectCard {
     margin: 0;
     padding: 0.4rem 0 0.4rem var(--section-gap);
     justify-content: flex-start;
@@ -176,7 +200,7 @@ h3 {
     cursor: pointer;
   }
 
-  .item:before {
+  .item-effectCard:before {
     content: ' ';
     border-left: 1px solid var(--color-border);
     position: absolute;
@@ -185,7 +209,7 @@ h3 {
     height: calc(50% - 25px);
   }
 
-  .item:after {
+  .item-effectCard:after {
     content: ' ';
     border-left: 1px solid var(--color-border);
     position: absolute;
@@ -194,8 +218,8 @@ h3 {
     height: calc(50% - 25px);
   }
 
-  .item:last-of-type:after,
-  .item:first-of-type:before {
+  .item-effectCard:last-of-type:after,
+  .item-effectCard:first-of-type:before {
     display: none;
   }
 }
