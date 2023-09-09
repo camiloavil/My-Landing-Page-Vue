@@ -1,30 +1,54 @@
 <script setup>
 import { toRefs } from 'vue';
+import { gsap } from 'gsap';
 
-const props = defineProps(['id']);
-const { id } = toRefs(props);
+const props = defineProps(['id', 'index']);
+const { id, index } = toRefs(props);
 
 const selected = () => {
-  console.log(`Clicked ${id.value}`);
+  console.log(`Clicked ${id.value} - ${index.value}`);
 };
+const beforeAppear = (el) => {
+  el.style.opacity = 0;
+  // el.style.transform = 'scale(0.2)';
+  el.style.transform = 'translateX(150px)';
+  // el.style.transform = 'scale(0.2) translateX(150px)';
+}
+const appear = (el,done) => {
+  gsap.to(el, {
+    opacity: 1,
+    x: 0,
+    // scale: 1,
+    duration: 0.4,
+    ease: "elastic.out(1, 0.5)",
+    onComplete: done,
+    delay: index.value * 0.2
+  })
+}
 </script>
 <template>
-  <div class="item">
-    <i @click="selected">
-      <slot name="icon"></slot>
-    </i>
-    <div class="details">
-      <h3 @click="selected">
-        <slot name="heading"></slot>
-      </h3>
-      <p>
-        <slot name="description"></slot>
-      </p>
-      <div>
-        <slot name="links"></slot>
+  <Transition 
+    appear
+    @before-appear="beforeAppear"
+    @appear="appear"
+    >
+    <div class="item">
+      <i @click="selected">
+        <slot name="icon"></slot>
+      </i>
+      <div class="details">
+        <h3 @click="selected">
+          <slot name="heading"></slot>
+        </h3>
+        <p>
+          <slot name="description"></slot>
+        </p>
+        <div>
+          <slot name="links"></slot>
+        </div>
       </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <style scoped >

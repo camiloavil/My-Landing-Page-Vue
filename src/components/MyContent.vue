@@ -36,12 +36,12 @@ onMounted(() => {
     <h2>{{ app_content.title }}</h2>
   </Transition>
   <section>
-    <TransitionGroup name="initialShowUp" appear>
+    <!-- <TransitionGroup name="initialShowUp" appear> -->
       <ProjectItem 
-        v-for="{ id, name, description, url_icon, links, showType } in content" 
+        v-for="({ id, name, description, url_icon, links, showType }, index) in content" 
         @mouseover="selectItem(id, true)" @mouseleave="selectItem(id, false)"
         :class="{'blur-effectCard': showType === 'hide', 'selected-effectCard': showType === 'show'}" 
-        :key="id" :id="id"
+        :key="index" :id="id" :index="index" 
       >
         <template #icon>
           <Icon class="icons" :url_icon="url_icon"/>
@@ -59,7 +59,7 @@ onMounted(() => {
           </section>
         </template>
       </ProjectItem>
-    </TransitionGroup>
+    <!-- </TransitionGroup> -->
   </section>
 </template>
 
@@ -72,13 +72,11 @@ onMounted(() => {
 }
 
 .selected-effectCard {
-  /* z-index: 5; */
   background-color: var(--color-background-soft);
   border: 3px solid var(--color-border);
   margin-left: 15px;
   filter: blur(0);
   transform: scale(1.12);
-  /* padding-left: 1rem; */
 }
 .selected-effectCard .icons{
   fill: var(--color-links);
