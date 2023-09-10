@@ -46,11 +46,9 @@ onMounted(() => {
     <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
   </header>
   <main>
-    <Transition name="initialShowUp">
-      <section class="wrapper" v-if="showContent">
-        <MyBrand :data_content="data_content.profile" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
-      </section>
-    </Transition>
+    <section class="wrapper">
+      <MyBrand :data_content="data_content.profile" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
+    </section>
     <section class="content" v-if="showContent">
       <MyContent :app_content="data_content" :content="dataGithub"/>
     </section>

@@ -22,28 +22,21 @@ const Home = defineAsyncComponent(() => import("@/MyHome.vue"));
 //   // errorComponent: ErrorComponent,
 //   // timeout: 2000,
 // });
-
-
 </script>
 
 <template>
-  <!-- <Transition name="endWaiting"> -->
   <Suspense>
     <template #default>
       <Home/>
     </template>
     <template #fallback>
-      <InitAnimation/>
+      <Transition mode="out-in" @leave="console.log('leave')">
+        <!-- <component :is="InitAnimation" /> -->
+        <InitAnimation/>
+      </Transition>
     </template>
   </Suspense>
-<!-- </Transition> -->
 </template>
 
 <style scoped>
-.endWaiting-leave-active {
-  transition: opacity 0.3s ease;
-}
-.endWaiting-leave-to {
-  opacity: 0;
-}
 </style>

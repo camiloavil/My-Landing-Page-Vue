@@ -1,6 +1,7 @@
 <script setup>
-import { toRefs } from 'vue';
+import { animateInClass_I, animateInClass_II, animateInChildren } from '@/assets/scripts/animateGsap';
 import LogoLink from '@/components/icons/LogoLink.vue';
+import { ref, toRefs, onMounted } from 'vue';
 
 defineEmits(['changeTheme'])
 
@@ -19,15 +20,23 @@ const props = defineProps({
   }
 });
 const { data_content, links_content, themeDark } = toRefs(props);
-// const getImageUrl = (imageNameWithExtension) => new URL(`./src/assets/pics/${imageNameWithExtension}`, import.meta.url).href;
-const getImageUrl = (path) => {
-  return new URL(`../assets/pics/${path}`, import.meta.url).href;
-};
+const getImageUrl = (path) => new URL(`../assets/pics/${path}`, import.meta.url).href;
+
+const iconsRefSMedia = ref(null);
+const iconsRefContact = ref(null);
+
+onMounted(() => {
+  animateInClass_I('.profilepicture');
+  animateInClass_I('.top-container');
+  animateInClass_II('.logo');
+  animateInChildren(iconsRefContact.value);
+  animateInChildren(iconsRefSMedia.value);
+})
 </script>
 
 <template>
-  <!-- <img class="profilepicture" @click="$emit('changeTheme')" :src="getImageUrl(`profile${(themeDark)?'Orange':'Blue'}.png`)" alt="Profile Pic"> -->
   <img class="profilepicture" @click="$emit('changeTheme')" :src="getImageUrl(`profile${(themeDark)?'Orange':'Blue'}.png`)" alt="Profile Pic">
+  <!-- <img class="profilepicture" @click="$emit('changeTheme')" :src="`@/assets/pics/profile${(themeDark)?'Orange':'Blue'}.png`" alt="Profile Pic"> -->
   <footer class="footer-container">
     <div class="top-container">
       <h1 class="mycolor">{{ data_content.name }}</h1>
@@ -40,10 +49,10 @@ const getImageUrl = (path) => {
     </div>
     <div class="bottom-container">
       <div class="logos-container">
-        <div v-if="links_content.links.length > 0" class="icon_container">
+        <div v-if="links_content.links.length > 0" ref="iconsRefSMedia" class="icon_container">
           <LogoLink class="links" v-for="{id, name, url} in links_content.links" :key="id" :name="name" :url="url"/>
         </div>
-        <div v-if="links_content.contacts.length > 0" class="icon_container">
+        <div v-if="links_content.contacts.length > 0" ref="iconsRefContact" class="icon_container">
           <LogoLink class="links" v-for="{id, name, url} in links_content.contacts" :key="id" :name="name" :url="url"/>
         </div>
       </div>
@@ -61,7 +70,6 @@ const getImageUrl = (path) => {
   border-radius: 48%;
   min-height: 2rem;
   max-height: 6rem;
-  /* cursor: pointer; */
 }
 .footer-container{
   display: block; 

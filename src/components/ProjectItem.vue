@@ -1,6 +1,5 @@
 <script setup>
 import { toRefs } from 'vue';
-import { gsap } from 'gsap';
 
 const props = defineProps(['id', 'index']);
 const { id, index } = toRefs(props);
@@ -8,28 +7,20 @@ const { id, index } = toRefs(props);
 const selected = () => {
   console.log(`Clicked ${id.value} - ${index.value}`);
 };
-const beforeAppear = (el) => {
-  el.style.opacity = 0;
-  // el.style.transform = 'scale(0.2)';
-  el.style.transform = 'translateX(150px)';
-  // el.style.transform = 'scale(0.2) translateX(150px)';
-}
-const appear = (el,done) => {
-  gsap.to(el, {
-    opacity: 1,
-    x: 0,
-    // scale: 1,
-    duration: 0.4,
-    ease: "elastic.out(1, 0.5)",
-    onComplete: done,
-    delay: index.value * 0.2
-  })
-}
+
+// const appear = (el,done) => {
+//   gsap.to(el, {
+//     opacity: 1,
+//     x: 0,
+//     scale: 1,
+//     duration: 0.4,
+//     ease: "circ.inOut",
+//     onComplete: done,
+//     delay: index.value * 0.2
+//   })
+// }
 </script>
 <template>
-  <Transition 
-    appear
-  >
     <div class="item-effectCard">
       <i @click="selected">
         <slot name="icon"></slot>
@@ -46,7 +37,6 @@ const appear = (el,done) => {
         </div>
       </div>
     </div>
-  </Transition>
 </template>
 
 <style scoped >
@@ -124,7 +114,7 @@ i {
 
 h3 {
   display: inline;
-  transition: var(--vt-c-transition-fast) ease;
+  /* transition: var(--vt-c-transition-fast) ease; */
   color: var(--color-heading);
   font-size: 1rem;
   font-weight: 700;
