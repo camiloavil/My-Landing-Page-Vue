@@ -1,45 +1,49 @@
 <script setup>
 import InitAnimation from '@/components/InitAnimation.vue'
 import theme from '@/assets/scripts/theme.js'
-import { onMounted, defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from 'vue'
 
-const Home = defineAsyncComponent({
-  loader: () => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(import("@/MyHome.vue"));
-      }, 500);
-    })
-  },
-  loadingComponent: InitAnimation,
-  delay: 0,
-  // errorComponent: ErrorComponent,
-  // timeout: 2000,
-});
-onMounted(() => {
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    theme.setDarkTheme();
-  } else {
-    theme.setLightTheme();
-  }
-});
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  theme.setDarkTheme();
+} else {
+  theme.setLightTheme();
+}
+const Home = defineAsyncComponent(() => import("@/MyHome.vue"));
+// const Home = defineAsyncComponent({
+//   loader: () => {
+//     return new Promise((resolve) => {
+//       setTimeout(() => {
+//         resolve(import("@/MyHome.vue"));
+//       }, 100);
+//     })
+//   },
+//   // loadingComponent: InitAnimation,
+//   // delay: 0,
+//   // errorComponent: ErrorComponent,
+//   // timeout: 2000,
+// });
+
+
 </script>
 
 <template>
-  <!-- <h1 v-if="!HomeReady">Hola</h1> -->
-  <!-- <Transition> -->
-    <Home/>
-  <!-- </Transition> -->
+  <!-- <Transition name="endWaiting"> -->
+  <Suspense>
+    <template #default>
+      <Home/>
+    </template>
+    <template #fallback>
+      <InitAnimation/>
+    </template>
+  </Suspense>
+<!-- </Transition> -->
 </template>
 
 <style scoped>
-/* .v-enter-active, */
-.v-leave-active {
+.endWaiting-leave-active {
   transition: opacity 0.3s ease;
 }
-
-/* .v-enter-from, */
-.v-leave-to {
+.endWaiting-leave-to {
   opacity: 0;
 }
 </style>

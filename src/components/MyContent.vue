@@ -18,7 +18,13 @@ const props = defineProps({
   }
 });
 const { app_content, content } = toRefs(props);
-const selectItem = (id, selector) => {
+
+const selectItem = (index, id, selector) => {
+  if (selector){
+    console.log(`HOVER:${index} ${selector}`);
+  }else{
+    console.log(`UNHOVER:${index} ${selector}`);
+  }
   if (selector === false) {
     content.value.forEach(item => item.showType = 'normal');
   }else{
@@ -43,7 +49,7 @@ onMounted(() => {
     <!-- <TransitionGroup name="initialShowUp" appear> -->
       <ProjectItem 
         v-for="({ id, name, description, url_icon, links, showType }, index) in content" 
-        @mouseover="selectItem(id, true)" @mouseleave="selectItem(id, false)"
+        @mouseover="selectItem(index, id, true)" @mouseleave="selectItem(index, id, false)"
         :class="{'blur-effectCard': showType === 'hide', 'selected-effectCard': showType === 'show', 'selected-gsap-effectCard': showType === 'show'}" 
         :key="index" :id="id" :index="index" 
       >

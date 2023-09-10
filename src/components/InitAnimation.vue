@@ -1,5 +1,4 @@
 <template>
-	<Transition name="FadeDesapear">
 		<div>
 			<svg class="pl" viewBox="0 0 128 128" width="128px" height="128px">
 				<defs>
@@ -53,16 +52,8 @@
 				</g>
 			</svg>
     </div>
-	</Transition>
 </template>
 <style scoped>
-.v-leave-active {
-  transition: opacity 0.2s ease;
-}
-
-.v-leave-to {
-  opacity: 0;
-}
 div {
     height: 100vh;
     display: flex;

@@ -29,7 +29,7 @@ const appear = (el,done) => {
 <template>
   <Transition 
     appear
-    >
+  >
     <div class="item-effectCard">
       <i @click="selected">
         <slot name="icon"></slot>

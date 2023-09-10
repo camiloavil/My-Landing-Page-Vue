@@ -6,10 +6,10 @@ import content from '@/assets/scripts/getContent.js';
 import linksjson from '@/assets/json/links.json';
 import content_en_json from '@/assets/json/content_en.json';
 import content_es_json from '@/assets/json/content_es.json';
-// import MyLoader from '@/components/MyLoader.vue';
 import { ref, onMounted, computed } from 'vue'
 
 const dark_theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches)
+const showContent = ref(false)
 const dataGithub = ref([])
 const lang = ref('en')
 const links_content = ref(linksjson)
@@ -23,9 +23,6 @@ function changeLanguage() {
     document.documentElement.lang ='en'
   }
 }
-const showGithubprojects = computed( () => {
-  return (dataGithub.value && dataGithub.value.length > 0)
-});
 const data_content = computed(() => {
   if (lang.value === 'en') {
     return content_en_json;
@@ -34,9 +31,13 @@ const data_content = computed(() => {
   }
 });
 
-onMounted(async () => {
-  let data = await content.getContent(data_content.value.profile.github_username);
-  dataGithub.value.push(...data);
+dataGithub.value = await content.getContent(data_content.value.profile.github_username);
+//Simulate a delay on fetch info
+await new Promise((resolve) => setTimeout(resolve, 1000));
+
+onMounted(() => {
+  // console.log(`MyHome ready`);
+  showContent.value = true;
 });
 </script>
 
@@ -45,15 +46,12 @@ onMounted(async () => {
     <NavBar :language="lang" :themeDark="dark_theme" @changeLanguage="changeLanguage" @changeTheme="dark_theme=!dark_theme"/>
   </header>
   <main>
-    <Transition name="initialShowUp" appear>
-      <section class="wrapper" v-if="showGithubprojects">
+    <Transition name="initialShowUp">
+      <section class="wrapper" v-if="showContent">
         <MyBrand :data_content="data_content.profile" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
       </section>
     </Transition>
-    <!-- <Transition name="disappear">
-      <MyLoader v-if="!showGithubprojects"/>
-    </Transition> -->
-    <section class="content" v-if="showGithubprojects">
+    <section class="content" v-if="showContent">
       <MyContent :app_content="data_content" :content="dataGithub"/>
     </section>
   </main>
