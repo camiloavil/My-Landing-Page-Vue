@@ -46,7 +46,6 @@ export default {
                     license: item.license,
                     topics: item.topics,
                     url_icon: `${endPoint_rawGithub}${item.owner.login}/${item.name}/main/icon.svg`,
-                    showType: 'normal',
                 }
             });
             console.log(mappedData);

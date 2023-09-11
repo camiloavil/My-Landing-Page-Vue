@@ -56,14 +56,12 @@ svg{
 .rotateIcon-enter-from{
   transform: rotateY(90deg);
 }
+.rotateIcon-leave-active,
 .rotateIcon-enter-active{
-  transition: all var(--vt-c-transition-slow) ease;
+  transition: all var(--vt-c-transition-fast) ease;
 }
 .rotateIcon-leave-to{
   transform: rotateY(-90deg);
-}
-.rotateIcon-leave-active {
-  transition: all var(--vt-c-transition-slow) ease;
 }
 </style>
 

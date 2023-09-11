@@ -9,7 +9,6 @@ import content_es_json from '@/assets/json/content_es.json';
 import { ref, onMounted, computed } from 'vue'
 
 const dark_theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches)
-const showContent = ref(false)
 const dataGithub = ref([])
 const lang = ref('en')
 const links_content = ref(linksjson)
@@ -37,7 +36,6 @@ await new Promise((resolve) => setTimeout(resolve, 1000));
 
 onMounted(() => {
   // console.log(`MyHome ready`);
-  showContent.value = true;
 });
 </script>
 
@@ -49,7 +47,7 @@ onMounted(() => {
     <section class="wrapper">
       <MyBrand :data_content="data_content.profile" :links_content="links_content" :themeDark="dark_theme" @changeTheme="dark_theme=!dark_theme"/>
     </section>
-    <section class="content" v-if="showContent">
+    <section class="content">
       <MyContent :app_content="data_content" :content="dataGithub"/>
     </section>
   </main>

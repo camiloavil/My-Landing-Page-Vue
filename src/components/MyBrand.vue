@@ -1,5 +1,5 @@
 <script setup>
-import { animateInClass_I, animateInClass_II, animateInChildren } from '@/assets/scripts/animateGsap';
+import { animateInClass_I, animateInClass_II, animateInChildren } from '@/assets/scripts/gsap/initAppears';
 import LogoLink from '@/components/icons/LogoLink.vue';
 import { ref, toRefs, onMounted } from 'vue';
 

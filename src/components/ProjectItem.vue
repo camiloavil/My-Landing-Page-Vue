@@ -1,27 +1,74 @@
 <script setup>
-import { toRefs } from 'vue';
+import { registerBlurEffect } from '@/assets/scripts/gsap/registerEffects';
+import { animateItems } from '@/assets/scripts/gsap/statesAnimations';
 
-const props = defineProps(['id', 'index']);
-const { id, index } = toRefs(props);
+import { toRefs } from 'vue';
+import { gsap } from 'gsap';
+
+const props = defineProps(['id', 'ready']);
+const { id, ready } = toRefs(props);
+
+// console.log(document.querySelector(".itemsContainer").children);
 
 const selected = () => {
-  console.log(`Clicked ${id.value} - ${index.value}`);
+  console.log(`Clicked ${id.value}`);
 };
 
-// const appear = (el,done) => {
-//   gsap.to(el, {
-//     opacity: 1,
-//     x: 0,
-//     scale: 1,
-//     duration: 0.4,
-//     ease: "circ.inOut",
-//     onComplete: done,
-//     delay: index.value * 0.2
-//   })
-// }
+registerBlurEffect();
+const selectItem = (ev) => {
+  // Prevent animetion before end of appearance
+  if (!ready.value) return;
+  const itemSelected = ev.target;
+  // console.log(`HOVER:${index} ${itemSelected}`);
+  // content.value.find(item => item.id === id).showType = 'show';
+  // content.value.filter(item => item.id !== id).forEach(item => item.showType = 'hide');
+
+  // console.log(itemSelected.querySelector('svg'));
+  
+  const siblings = [];
+  let sibling = itemSelected.parentElement.firstElementChild;
+  while (sibling) {
+    if (sibling !== itemSelected) {
+      siblings.push(sibling);
+    }
+    sibling = sibling.nextElementSibling;
+  }
+  // console.log(siblings);
+
+  //Item Selected
+  let tl = gsap.timeline();
+  tl.to(itemSelected, { ...animateItems.div.selected, blur: 0, duration: 0.1 },0);
+  tl.to(itemSelected.querySelector('svg'), { ...animateItems.icon_svg.selected, duration: 0.1 },0);
+  tl.to(itemSelected.querySelector('h3'), { ...animateItems.title_h3.selected, duration: 0.1 },0);
+
+  // var blurElement = {siblings[-1]:0};//start the blur at 0 pixels
+
+  tl.to(siblings, { ...animateItems.div.hide, 
+    // blur: 1.5, 
+    filter: 'blur(1.5px)',
+    duration: 0.5 },
+  0 );
+  // tl.to(siblings, { , duration: 0.1 },0);
+
+  console.log(tl.totalDuration())
+};
+
+const deSelectItemLeave = (ev) => {
+  // console.log(`leave ${index} - ${id} ${ev.target}`);
+  // content.value.forEach(item => item.showType = 'normal');
+
+  let tl = gsap.timeline();
+  tl.to(ev.target, { ...animateItems.div.normal, blur: 0 },0);
+  tl.to(ev.target.querySelector('svg'), { ...animateItems.icon_svg.normal },0);
+  tl.to(ev.target.querySelector('h3'), { ...animateItems.title_h3.normal },0);
+}
+
 </script>
 <template>
-    <div class="item-effectCard">
+    <div class="item-effectCard"
+      @mouseenter="selectItem($event)"
+      @mouseleave="deSelectItemLeave($event)"
+    >
       <i @click="selected">
         <slot name="icon"></slot>
       </i>
@@ -80,7 +127,7 @@ const selected = () => {
 }
 
 .item-effectCard {
-  transition: var(--vt-c-transition-normal) ease;
+  /* transition: var(--vt-c-transition-normal) ease; */
   margin: 1rem 0.2rem;
   padding: 0.3rem 0.2rem;
   display: flex;
@@ -101,7 +148,7 @@ const selected = () => {
 }
 
 i {
-  transition: var(--vt-c-transition-fast) ease;
+  /* transition: var(--vt-c-transition-fast) ease; */
   background: var(--color-background);
   border: 1px solid var(--color-border);
   display: grid;
@@ -188,6 +235,10 @@ h3 {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
+  }
+  h3:hover{
+    font-size: 1.3rem;
+    font-weight: 900;
   }
 
   .item-effectCard:before {
