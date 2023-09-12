@@ -1,68 +1,75 @@
 <script setup>
 import { registerBlurEffect } from '@/assets/scripts/gsap/registerEffects';
-import { animateItems } from '@/assets/scripts/gsap/statesAnimations';
-
-import { toRefs } from 'vue';
+import ItemStateAnimation  from '@/assets/scripts/gsap/statesAnimations';
+import { ref ,toRefs } from 'vue';
 import { gsap } from 'gsap';
 
-const props = defineProps(['id', 'ready']);
-const { id, ready } = toRefs(props);
+const displayLineIcons = ref('block');
+const props = defineProps(['id', 'ready','linkShow']);
+const { id, ready, linkShow } = toRefs(props);
 
+registerBlurEffect();
 // console.log(document.querySelector(".itemsContainer").children);
-
 const selected = () => {
   console.log(`Clicked ${id.value}`);
 };
 
-registerBlurEffect();
+
 const selectItem = (ev) => {
   // Prevent animetion before end of appearance
   if (!ready.value) return;
-  const itemSelected = ev.target;
-  // console.log(`HOVER:${index} ${itemSelected}`);
-  // content.value.find(item => item.id === id).showType = 'show';
-  // content.value.filter(item => item.id !== id).forEach(item => item.showType = 'hide');
 
-  // console.log(itemSelected.querySelector('svg'));
+  // change de css property of line of icons
+  displayLineIcons.value = 'none';
+
+  // Get DOM Elements to change and Animate
+  const itemSelected = ev.target;
+  const siblings = getSiblings(itemSelected);
   
+  const activeTLdeselect = gsap.getById('deSelect');
+  if(activeTLdeselect){
+    activeTLdeselect.kill();
+  }
+
+  const tl_master_select = gsap.timeline({id: 'Select', data: itemSelected.querySelector('h3').textContent});
+  //Add Item future States on master timeline GSAP animation
+  tl_master_select.add( ItemStateAnimation.tl_itemSelected(itemSelected, 0.25 ,() => {console.log(`****End Selected Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
+  tl_master_select.add( ItemStateAnimation.tl_itemSiblingSelected(siblings, 0.25 ,() => {console.log(`****End Selected Siblings of Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
+
+};
+const deSelectItemLeave = (ev) => {
+  // Prevent animetion before end of appearance
+  if (!ready.value) return;
+
+  // change de css property of line of icons
+  displayLineIcons.value = 'block';
+
+  // Get DOM Elements to change and Animate
+  const itemSelected = ev.target;
+  const siblings = getSiblings(itemSelected);
+
+  const tl_master_deselect = gsap.timeline({id: 'deSelect', data: itemSelected.querySelector('h3').textContent});
+  tl_master_deselect.add( ItemStateAnimation.tl_itemDeselected(itemSelected, 0.3, () => {console.log(`****End DeSelected Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
+  tl_master_deselect.add( ItemStateAnimation.tl_itemSiblingDeselected(siblings, 0.3, () => {console.log(`****End DeSelected Siblings of Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
+  
+}
+/**
+ * Returns an array of all the siblings of the given element but no the given element.
+ *
+ * @param {HTMLElement} element - The element whose siblings are to be retrieved.
+ * @return {Array<HTMLElement>} An array of all the siblings of the given element.
+ */
+ const getSiblings = (element) => {
   const siblings = [];
-  let sibling = itemSelected.parentElement.firstElementChild;
+  let sibling = element.parentElement.firstElementChild;
   while (sibling) {
-    if (sibling !== itemSelected) {
+    if (sibling !== element) {
       siblings.push(sibling);
     }
     sibling = sibling.nextElementSibling;
   }
-  // console.log(siblings);
-
-  //Item Selected
-  let tl = gsap.timeline();
-  tl.to(itemSelected, { ...animateItems.div.selected, blur: 0, duration: 0.1 },0);
-  tl.to(itemSelected.querySelector('svg'), { ...animateItems.icon_svg.selected, duration: 0.1 },0);
-  tl.to(itemSelected.querySelector('h3'), { ...animateItems.title_h3.selected, duration: 0.1 },0);
-
-  // var blurElement = {siblings[-1]:0};//start the blur at 0 pixels
-
-  tl.to(siblings, { ...animateItems.div.hide, 
-    // blur: 1.5, 
-    filter: 'blur(1.5px)',
-    duration: 0.5 },
-  0 );
-  // tl.to(siblings, { , duration: 0.1 },0);
-
-  console.log(tl.totalDuration())
-};
-
-const deSelectItemLeave = (ev) => {
-  // console.log(`leave ${index} - ${id} ${ev.target}`);
-  // content.value.forEach(item => item.showType = 'normal');
-
-  let tl = gsap.timeline();
-  tl.to(ev.target, { ...animateItems.div.normal, blur: 0 },0);
-  tl.to(ev.target.querySelector('svg'), { ...animateItems.icon_svg.normal },0);
-  tl.to(ev.target.querySelector('h3'), { ...animateItems.title_h3.normal },0);
+  return siblings;
 }
-
 </script>
 <template>
     <div class="item-effectCard"
@@ -72,22 +79,27 @@ const deSelectItemLeave = (ev) => {
       <i @click="selected">
         <slot name="icon"></slot>
       </i>
-      <div class="details">
+      <section class="details">
         <h3 @click="selected">
           <slot name="heading"></slot>
         </h3>
         <p>
           <slot name="description"></slot>
         </p>
-        <div>
+        <section class="sectionLinks" v-if="linkShow">
           <slot name="links"></slot>
-        </div>
-      </div>
+        </section>
+      </section>
     </div>
 </template>
 
 <style scoped >
 
+.sectionLinks {
+  display: flex;
+  align-items: center;
+  padding-top: 5px;
+}
 
 .blur-effectCard {
   /* z-index: -1; */
@@ -180,21 +192,6 @@ h3 {
     transform: scale(1.1);
     border: 3px solid var(--color-border);
   }
-  .selected-effectCard::after,
-  .selected-effectCard::before {
-    display: none;
-  }
-  .selected-effectCard h3{
-    font-size: 1.2rem;
-    font-weight: 700;
-  }
-  .selected-effectCard h3:hover{
-    font-size: 1.3rem;
-    font-weight: 800;
-  }
-  .selected-effectCard i:hover{
-    transform: scale(1.2);
-  }
 
   .selected-effectCard .details{
     margin-left: 0;
@@ -236,12 +233,9 @@ h3 {
     font-weight: 600;
     cursor: pointer;
   }
-  h3:hover{
-    font-size: 1.3rem;
-    font-weight: 900;
-  }
 
   .item-effectCard:before {
+    display: v-bind(displayLineIcons);
     content: ' ';
     border-left: 1px solid var(--color-border);
     position: absolute;
@@ -251,6 +245,7 @@ h3 {
   }
 
   .item-effectCard:after {
+    display: v-bind(displayLineIcons);
     content: ' ';
     border-left: 1px solid var(--color-border);
     position: absolute;

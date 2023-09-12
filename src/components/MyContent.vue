@@ -38,7 +38,7 @@ onMounted(() => {
   <section class="itemsContainer">
       <ProjectItem 
         v-for="({ id, name, description, url_icon, links }, index) in content" 
-        :key="index" :id="id" :ready="endAppear" 
+        :key="index" :id="id" :linkShow="(links.length)? true : false" :ready="endAppear" 
       >
         <template #icon>
           <IconDynamicUrl class="icons" :url_icon="url_icon" :ready="endAppear"/>
@@ -50,10 +50,8 @@ onMounted(() => {
           {{ description }}
         </template>
         <template #links>
-          <section class="sectionLinks" v-if="links.length">
             <span class="links-seccion">{{ app_content.textlinks }}</span>
             <LogoLink  v-for="{id, name, url} in links" :key="id" :name="name" :url="url" />
-          </section>
         </template>
       </ProjectItem>
   </section>
@@ -65,10 +63,6 @@ h2{
   font-size: 1.3rem;
   font-weight: 700;
   padding: 0.2rem 0;
-}
-.sectionLinks {
-  display: flex;
-  align-items: center;
 }
 
 .icons {
