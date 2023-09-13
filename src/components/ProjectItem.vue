@@ -4,12 +4,11 @@ import ItemStateAnimation  from '@/assets/scripts/gsap/statesAnimations';
 import { ref ,toRefs } from 'vue';
 import { gsap } from 'gsap';
 
-const displayLineIcons = ref('block');
 const props = defineProps(['id', 'ready','linkShow']);
 const { id, ready, linkShow } = toRefs(props);
+const displayLineIcons = ref('block');
 
 registerBlurEffect();
-// console.log(document.querySelector(".itemsContainer").children);
 const selected = () => {
   console.log(`Clicked ${id.value}`);
 };
@@ -113,7 +112,7 @@ const deSelectItemLeave = (ev) => {
 <style scoped >
 
 .sectionLinks {
-  display: flex;
+  display: none;
   align-items: center;
   padding-top: 5px;
 }
@@ -198,31 +197,11 @@ h3 {
 }
 
 @media (min-width: 1024px) {
-  .blur-effectCard {
-    filter: blur(1px);
-    transform: scale(0.9);
-  }
-  .selected-effectCard {
-    margin: 0;
-    /* padding-left: 5px; */
-    filter: blur(0);
-    transform: scale(1.1);
-    border: 3px solid var(--color-border);
+
+  .sectionLinks {
+    display: flex;
   }
 
-  .selected-effectCard .details{
-    margin-left: 0;
-  }
-  .selected-effectCard .details div {
-    display: block;
-  }
-  .selected-effectCard .details p{
-    display: block;
-    padding-left: 0px;
-  }
-  .selected-effectCard i{
-    top: calc(10%);
-  }
   .item-effectCard {
     margin: 0;
     padding: 0.4rem 0 0.4rem var(--section-gap);
@@ -232,8 +211,7 @@ h3 {
     margin-left: 1rem;
   }  
 
-  .details p,
-  .details div {
+  .details p{
     display: block;
   }
   i {

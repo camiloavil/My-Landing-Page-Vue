@@ -47,9 +47,7 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.selected-effectCard .icons{
-  fill: var(--color-links);
-}
+
 svg{
   position: absolute;
 }

@@ -26,8 +26,8 @@ export function animateInChildren(element, done) {
 }
 export function animateInClass_I(element) {
   gsap.from(element, {
-    // autoAlpha: 0,
-    opacity: 0, 
+    autoAlpha: 0,
+    // opacity: 0, 
     scale: 0.5,
     x: '+50',
     duration: t_slow + 0.5, 
