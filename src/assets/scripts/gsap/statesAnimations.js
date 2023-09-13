@@ -4,7 +4,6 @@ const t_slow = 0.5;
 const t_medium = 0.2;
 const t_fast = 0.1;
 
-
 /**
  * Generates a timeline for the selected item animation.
  *
@@ -73,9 +72,16 @@ function tl_itemDeselected(element, duration, done) {
  * @param {function} done - A callback function to be executed when the animation is complete.
  * @return {Timeline} The GSAP timeline object.
  */
-function tl_itemSiblingDeselected(element, duration, done) {
+function tl_itemSiblingDeselected(siblings, duration, done) {
   let tl = gsap.timeline({onComplete: done}); 
-  tl.to(element, { ...animateItems.bigContainer_div.normal, blur: 0, duration: duration }, 0 );
+  tl.to(siblings, { ...animateItems.bigContainer_div.normal, blur: 0, duration: duration }, 0 );
+  siblings.map((element) => {
+    tl.to(element.querySelector('section'), { ...animateItems.container_section.normal , duration: duration },0);
+    tl.to(element.querySelector('svg'), { ...animateItems.icon_svg.normal, duration: duration },0);
+    tl.to(element.querySelector('h3'), { ...animateItems.title_h3.normal, duration: duration },0);
+    tl.to(element.querySelector('p'), { ...animateItems.description_p.normal, duration: duration },0);
+    tl.to(element.querySelector('i'), { ...animateItems.container_i.normal, duration: duration },0);
+  })
   return tl;
 }
 

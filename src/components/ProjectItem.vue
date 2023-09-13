@@ -30,16 +30,18 @@ const selectItem = (ev) => {
   idTimelines.map((idTimeline) => {
     let id_tl = gsap.getById(idTimeline);
     if( id_tl ){
+      // console.log(`${idTimeline}:${id_tl.vars.data} - Progress: ${id_tl.progress()}`)
       id_tl.kill();
-      console.log(`****Kill timeline ${idTimeline}`);
+      // console.log(`!!!!Kill on SELECT timeline ${idTimeline} - ${id_tl.vars.data}`);
     }
   })
 
   const tl_master_select = gsap.timeline({id: 'Select', data: itemSelected.querySelector('h3').textContent});
   //Add Item future States on master timeline GSAP animation
-  tl_master_select.add( ItemStateAnimation.tl_itemSelected(itemSelected, 0.25 ,() => {console.log(`****End Selected Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
-  tl_master_select.add( ItemStateAnimation.tl_itemSiblingHide(siblings, 0.25 ,() => {console.log(`****End Selected Siblings of Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
-
+  tl_master_select.add( ItemStateAnimation.tl_itemSelected(itemSelected, 0.25 ,() => {}), 0 );
+  tl_master_select.add( ItemStateAnimation.tl_itemSiblingHide(siblings, 0.25 ,() => {}), 0 );
+  
+  // console.log(`register Selecting ${itemSelected.querySelector('h3').textContent}`);
 };
 const deSelectItemLeave = (ev) => {
   // Prevent animetion before end of appearance
@@ -52,10 +54,21 @@ const deSelectItemLeave = (ev) => {
   const itemSelected = ev.target;
   const siblings = getSiblings(itemSelected);
 
+  const idTimelines = ['Select'];
+  idTimelines.map((idTimeline) => {
+    let id_tl = gsap.getById(idTimeline);
+    if( (id_tl) && (id_tl.vars.data === itemSelected.querySelector('h3').textContent) ){
+      // console.log(`${idTimeline}:${id_tl.vars.data} - Progress: ${id_tl.progress()}`)
+      id_tl.kill();
+      // console.log(`!!!!Kill on DESELECT timeline ${idTimeline} - ${id_tl.vars.data}`);
+    }
+  })
+
   const tl_master_deselect = gsap.timeline({id: 'deSelect', data: itemSelected.querySelector('h3').textContent});
-  tl_master_deselect.add( ItemStateAnimation.tl_itemDeselected(itemSelected, 0.3, () => {console.log(`****End DeSelected Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
-  tl_master_deselect.add( ItemStateAnimation.tl_itemSiblingDeselected(siblings, 0.3, () => {console.log(`****End DeSelected Siblings of Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
-  
+  tl_master_deselect.add( ItemStateAnimation.tl_itemDeselected(itemSelected, 0.3, () => {}), 0 );
+  tl_master_deselect.add( ItemStateAnimation.tl_itemSiblingDeselected(siblings, 0.3, () => {}), 0 );
+ 
+  // console.log(`register DESelecting ${itemSelected.querySelector('h3').textContent}`);
 }
 /**
  * Returns an array of all the siblings of the given element but no the given element.
