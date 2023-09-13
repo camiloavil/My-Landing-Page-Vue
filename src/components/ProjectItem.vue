@@ -26,15 +26,19 @@ const selectItem = (ev) => {
   const itemSelected = ev.target;
   const siblings = getSiblings(itemSelected);
   
-  const activeTLdeselect = gsap.getById('deSelect');
-  if(activeTLdeselect){
-    activeTLdeselect.kill();
-  }
+  const idTimelines = ['Select', 'deSelect'];
+  idTimelines.map((idTimeline) => {
+    let id_tl = gsap.getById(idTimeline);
+    if( id_tl ){
+      id_tl.kill();
+      console.log(`****Kill timeline ${idTimeline}`);
+    }
+  })
 
   const tl_master_select = gsap.timeline({id: 'Select', data: itemSelected.querySelector('h3').textContent});
   //Add Item future States on master timeline GSAP animation
   tl_master_select.add( ItemStateAnimation.tl_itemSelected(itemSelected, 0.25 ,() => {console.log(`****End Selected Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
-  tl_master_select.add( ItemStateAnimation.tl_itemSiblingSelected(siblings, 0.25 ,() => {console.log(`****End Selected Siblings of Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
+  tl_master_select.add( ItemStateAnimation.tl_itemSiblingHide(siblings, 0.25 ,() => {console.log(`****End Selected Siblings of Item ${itemSelected.querySelector('h3').textContent}`)}), 0 );
 
 };
 const deSelectItemLeave = (ev) => {

@@ -24,19 +24,19 @@ function tl_itemSelected(element, duration ,done) {
 	return tl;
 }
 
+
 /**
- * Generates the function comment for the given function body in a markdown code block with the correct language syntax.
+ * Generates a timeline animation for selecting sibling elements to hide them.
  *
- * @param {any} element - the element to animate
- * @param {number} duration - the duration of the animation
- * @param {function} done - a callback function to be called when the animation is completed
- * @return {object} - the timeline object representing the animation
+ * @param {Array} siblings - An array of sibling elements.
+ * @param {number} duration - The duration of the animation.
+ * @param {Function} done - A callback function to be called when the animation is complete.
+ * @return {Timeline} - The generated timeline animation.
  */
-function tl_itemSiblingSelected(siblings, duration ,done) {
+function tl_itemSiblingHide(siblings, duration ,done) {
   let tl = gsap.timeline({onComplete: done});
   tl.to(siblings, { ...animateItems.bigContainer_div.hide, duration: duration }, (duration/2));
   siblings.map((element) => {
-    // tl.to(element, { ...animateItems.bigContainer_div.normal, duration: duration },0);
     tl.to(element.querySelector('section'), { ...animateItems.container_section.normal , duration: duration },0);
     tl.to(element.querySelector('svg'), { ...animateItems.icon_svg.normal, duration: duration },0);
     tl.to(element.querySelector('h3'), { ...animateItems.title_h3.normal, duration: duration },0);
@@ -100,9 +100,13 @@ const animateItems = {
     },
     hide:{
       duration: t_slow,
-      scale: 0.9,
       filter: 'blur(1.5px)',
-      ease: "slow(0.3, 0.4, false)"
+      scale: 0.9,
+      border: 'none',
+      backgroundColor: 'var(--color-background)',
+      zIndex: 1,
+      // ease: "slow(0.3, 0.4, false)"
+      ease: 'elastic.out(1, 0.5)'
       // blur: 1.5,
     }
   },
@@ -181,7 +185,7 @@ export default {
   t_medium,
   t_fast,
   tl_itemSelected,
-  tl_itemSiblingSelected,
+  tl_itemSiblingHide,
   tl_itemDeselected,
   tl_itemSiblingDeselected,
 }
