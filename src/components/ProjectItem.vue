@@ -1,12 +1,13 @@
 <script setup>
 import { registerBlurEffect } from '@/assets/scripts/gsap/registerEffects';
 import ItemStateAnimation  from '@/assets/scripts/gsap/statesAnimations';
-import { ref ,toRefs } from 'vue';
+import { ref ,toRefs, inject } from 'vue';
 import { gsap } from 'gsap';
 
 const props = defineProps(['id', 'ready','linkShow']);
 const { id, ready, linkShow } = toRefs(props);
 const displayLineIcons = ref('block');
+const isMobile = inject('isMobile');
 
 registerBlurEffect();
 const selected = () => {
@@ -36,11 +37,13 @@ const selectItem = (ev) => {
   })
 
   const tl_master_select = gsap.timeline({id: 'Select', data: itemSelected.querySelector('h3').textContent});
-  //Add Item future States on master timeline GSAP animation
-  tl_master_select.add( ItemStateAnimation.tl_itemSelected(itemSelected, 0.25 ,() => {}), 0 );
-  tl_master_select.add( ItemStateAnimation.tl_itemSiblingHide(siblings, 0.25 ,() => {}), 0 );
-  
-  // console.log(`register Selecting ${itemSelected.querySelector('h3').textContent}`);
+  if(!isMobile.value){
+    //Add Item future States on master timeline GSAP animation
+    tl_master_select.add( ItemStateAnimation.tl_itemSelected(itemSelected, 0.25 ,() => {}), 0 );
+    tl_master_select.add( ItemStateAnimation.tl_itemSiblingHide(siblings, 0.25 ,() => {}), 0 );
+  }else{
+    console.log(`isMobile: ${isMobile.value}`);
+  }
 };
 const deSelectItemLeave = (ev) => {
   // Prevent animetion before end of appearance
@@ -64,10 +67,13 @@ const deSelectItemLeave = (ev) => {
   })
 
   const tl_master_deselect = gsap.timeline({id: 'deSelect', data: itemSelected.querySelector('h3').textContent});
-  tl_master_deselect.add( ItemStateAnimation.tl_itemDeselected(itemSelected, 0.3, () => {}), 0 );
-  tl_master_deselect.add( ItemStateAnimation.tl_itemSiblingDeselected(siblings, 0.3, () => {}), 0 );
- 
-  // console.log(`register DESelecting ${itemSelected.querySelector('h3').textContent}`);
+  if(!isMobile.value){
+    //Add Item future States on master timeline GSAP animation
+    tl_master_deselect.add( ItemStateAnimation.tl_itemDeselected(itemSelected, 0.3, () => {}), 0 );
+    tl_master_deselect.add( ItemStateAnimation.tl_itemSiblingDeselected(siblings, 0.3, () => {}), 0 ); 
+  }else{
+    console.log(`isMobile: ${isMobile.value}`);
+  }
 }
 /**
  * Returns an array of all the siblings of the given element but no the given element.

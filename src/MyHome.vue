@@ -6,8 +6,9 @@ import content from '@/assets/scripts/getContent.js';
 import linksjson from '@/assets/json/links.json';
 import content_en_json from '@/assets/json/content_en.json';
 import content_es_json from '@/assets/json/content_es.json';
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, provide, readonly } from 'vue'
 
+const viewWidth = ref(window.innerWidth);
 const dark_theme = ref(window.matchMedia('(prefers-color-scheme: dark)').matches)
 const dataGithub = ref([])
 const lang = ref('en')
@@ -30,11 +31,16 @@ const data_content = computed(() => {
   }
 });
 
+const isMobile = computed(() => (viewWidth.value < 1024));
+const handleResize = () => { viewWidth.value = window.innerWidth };
+provide('isMobile', readonly(isMobile) )
+
 dataGithub.value = await content.getContent(data_content.value.profile.github_username);
 //Simulate a delay on fetch info
 await new Promise((resolve) => setTimeout(resolve, 1000));
 
 onMounted(() => {
+  window.addEventListener('resize', handleResize);
   // console.log(`MyHome ready`);
 });
 </script>

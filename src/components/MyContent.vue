@@ -5,7 +5,6 @@ import IconDynamicUrl from '@/components/icons/IconDynamicUrl.vue'
 import LogoLink from './icons/LogoLink.vue';
 import { ref, onMounted, toRefs } from 'vue';
 
-const viewWidth = ref(window.innerWidth);
 const endAppear = ref(false);
 
 const props = defineProps({
@@ -20,14 +19,12 @@ const props = defineProps({
 });
 const { app_content, content } = toRefs(props);
 
-const handleResize = () => { viewWidth.value = window.innerWidth };
 const endAnimation = () => {
   setTimeout(() => {
     endAppear.value = true;
   },250);
 }
 onMounted(() => {
-  window.addEventListener('resize', handleResize);
   animateInClass_I('.title')
   animateInChildren_II(document.querySelector(".itemsContainer"), endAnimation )
 });
