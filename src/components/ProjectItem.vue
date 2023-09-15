@@ -24,7 +24,6 @@ const selectItem = (ev) => {
 
   // Get DOM Elements to change and Animate
   const itemSelected = ev.target;
-  const siblings = getSiblings(itemSelected);
   
   const idTimelines = ['Select', 'deSelect'];
   idTimelines.map((idTimeline) => {
@@ -36,13 +35,10 @@ const selectItem = (ev) => {
     }
   })
 
-  const tl_master_select = gsap.timeline({id: 'Select', data: itemSelected.querySelector('h3').textContent});
   if(!isMobile.value){
-    //Add Item future States on master timeline GSAP animation
-    tl_master_select.add( ItemStateAnimation.tl_itemSelected(itemSelected, 0.25 ,() => {}), 0 );
-    tl_master_select.add( ItemStateAnimation.tl_itemSiblingHide(siblings, 0.25 ,() => {}), 0 );
+    ItemStateAnimation.tl_itemSelectedDesktop(itemSelected, 0.25 ,() => {});
   }else{
-    console.log(`isMobile: ${isMobile.value}`);
+    ItemStateAnimation.tl_itemSelectedMobile(itemSelected, 0.25 ,() => {});
   }
 };
 const deSelectItemLeave = (ev) => {
@@ -54,7 +50,6 @@ const deSelectItemLeave = (ev) => {
 
   // Get DOM Elements to change and Animate
   const itemSelected = ev.target;
-  const siblings = getSiblings(itemSelected);
 
   const idTimelines = ['Select'];
   idTimelines.map((idTimeline) => {
@@ -66,31 +61,11 @@ const deSelectItemLeave = (ev) => {
     }
   })
 
-  const tl_master_deselect = gsap.timeline({id: 'deSelect', data: itemSelected.querySelector('h3').textContent});
   if(!isMobile.value){
-    //Add Item future States on master timeline GSAP animation
-    tl_master_deselect.add( ItemStateAnimation.tl_itemDeselected(itemSelected, 0.3, () => {}), 0 );
-    tl_master_deselect.add( ItemStateAnimation.tl_itemSiblingDeselected(siblings, 0.3, () => {}), 0 ); 
+    ItemStateAnimation.tl_itemDESelectedDesktop(itemSelected, 0.3 ,() => {});
   }else{
-    console.log(`isMobile: ${isMobile.value}`);
+    ItemStateAnimation.tl_itemDESelectedMobile(itemSelected, 0.3 ,() => {});
   }
-}
-/**
- * Returns an array of all the siblings of the given element but no the given element.
- *
- * @param {HTMLElement} element - The element whose siblings are to be retrieved.
- * @return {Array<HTMLElement>} An array of all the siblings of the given element.
- */
- const getSiblings = (element) => {
-  const siblings = [];
-  let sibling = element.parentElement.firstElementChild;
-  while (sibling) {
-    if (sibling !== element) {
-      siblings.push(sibling);
-    }
-    sibling = sibling.nextElementSibling;
-  }
-  return siblings;
 }
 </script>
 <template>
@@ -170,8 +145,7 @@ const deSelectItemLeave = (ev) => {
   position: relative;
   border-radius: 15px;
 }
-.details p,
-.details div {
+.details p{
   display: none;
 }
 .details {
@@ -182,7 +156,7 @@ const deSelectItemLeave = (ev) => {
 }
 
 i {
-  /* transition: var(--vt-c-transition-fast) ease; */
+  position: inherit;
   background: var(--color-background);
   border: 1px solid var(--color-border);
   display: grid;
@@ -195,10 +169,9 @@ i {
 
 h3 {
   display: inline;
-  /* transition: var(--vt-c-transition-fast) ease; */
   color: var(--color-heading);
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 0.4rem;
 }
 
